@@ -1,0 +1,61 @@
+:root {
+  --but-height: 56px;
+  --inactive-col: #8585ad;
+}
+
+.header {
+  height: 88px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav {
+  width: 1280px;
+  margin: 16px 0 16px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  color: var(--inactive-col);
+  display: flex;
+  flex-direction: row;
+  height: var(--but-height);
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  gap: 8px;
+  width: 178px;
+}
+
+.button_left {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 383px;
+  height: var(--but-height);
+}
+
+.span {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  width: 120px;
+  /* height: 24px; */
+}
+
+.span_right {
+  composes: span;
+  width: 140px;
+}
+
+.logo {
+  position: relative;
+  right: 75px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}

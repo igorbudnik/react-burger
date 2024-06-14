@@ -1,0 +1,19 @@
+.section {
+  min-width: 600px;
+  margin-bottom: 40px;
+}
+
+.scroll {
+  height: 560px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  /* scrollbar-gutter: stable both-edges; */
+}
+
+.div {
+  display: flex;
+  margin-top: 40px;
+  gap: 40px;
+  align-items: center;
+  justify-content: end;
+}
