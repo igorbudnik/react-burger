@@ -1,5 +1,4 @@
 import React from "react";
-import { data } from "../App/utils/data";
 import mainStyle from "./burger-constructor.module.css";
 import {
   Tab,
@@ -23,29 +22,31 @@ const Counter = (props: any) => {
             fill="#4C4CFF"
           />
         </svg>
-        <span style={{ position: "relative", bottom: "34px" }}>
-          {props.count}
-        </span>
+        <span className={mainStyle.span}>{props.count}</span>
       </p>
     </div>
   );
 };
 
-class BurgerConstructor extends React.Component {
-  state = {
-    current: "one",
-  };
+class BurgerConstructor extends React.Component<any, any> {
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+      current: "one",
+    };
+  }
 
   render() {
-    const ingredients = (ingredient_type: string) => {
+    const ingredients_need = (ingredient_type: string) => {
       return (
         <>
-          {data
-            .filter((item) => item.type === ingredient_type)
-            .map((ingredient_type) => {
+          {this.props.ingredients
+            .filter((item: any) => item.type === ingredient_type)
+            .map((ingredient_type: any) => {
               return (
                 <div key={ingredient_type._id} className={mainStyle.div}>
-                  <img src={ingredient_type.image} alt="" />
+                  <img src={ingredient_type.image} alt={ingredient_type.name} />
                   {ingredient_type.name.length <= 30 && <Counter count={1} />}
                   <section className={mainStyle.section_item}>
                     <p className="text text_type_main-default">
@@ -92,11 +93,11 @@ class BurgerConstructor extends React.Component {
         </div>
         <div className={mainStyle.scroll}>
           <p className="text text_type_main-medium mb-6">Булки</p>
-          <div className={mainStyle.div_main}>{ingredients("bun")}</div>
+          <div className={mainStyle.div_main}>{ingredients_need("bun")}</div>
           <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-          <div className={mainStyle.div_main}>{ingredients("sauce")}</div>
+          <div className={mainStyle.div_main}>{ingredients_need("sauce")}</div>
           <p className="text text_type_main-medium mt-10 mb-6">Начинка</p>
-          <div className={mainStyle.div_main}>{ingredients("main")}</div>
+          <div className={mainStyle.div_main}>{ingredients_need("main")}</div>
         </div>
       </section>
     );

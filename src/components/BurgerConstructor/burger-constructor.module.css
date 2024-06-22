@@ -21,6 +21,11 @@
   grid-template-columns: repeat(2, 300px);
 }
 
+.span {
+  position: relative;
+  bottom: 34px;
+}
+
 .div {
   display: flex;
   align-items: center;
