@@ -1,41 +1,47 @@
-import React from "react";
-import { data } from "../App/utils/data";
+import React, { ReactNode, useState } from "react";
 import {
   ConstructorElement,
   DragIcon,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Ingredient } from "../App/app";
 import mainStyle from "../BurgerIngredients/burger-ingredients.module.css";
+import OrderDetails from "../OrderDetails/order-details";
+import ModalOverlay from "../ModalOverlay/modal-overlay";
 
-class BurgerIngredients extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
+const BurgerIngredients = (props: Ingredient[] | any) => {
+  const { ingredients } = props;
+  const [opened, setOpened] = useState<boolean>(false);
+  const isVisible = false;
+  const price: number = ingredients
+    .filter((item: Ingredient) => item.name.length <= 30)
+    .reduce((acc: number, x: Ingredient) => acc + Number(x.price), 0);
 
-    this.state = {
-      price: data
-        .filter((item) => item.name.length <= 30)
-        .reduce((acc, x) => acc + Number(x.price), 0),
-    };
-  }
+  const changeOpen = (opener: boolean): void => {
+    setOpened(opener);
+  };
 
-  render() {
-    const len = data.filter((item) => item.name.length <= 30);
-    const ingredients_constructor = () => {
-      return (
-        <div className={mainStyle.all_options}>
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={len[0].name}
-            price={len[0].price}
-            thumbnail={len[0].image}
-            extraClass="ml-8"
-          />
-          <div className={mainStyle.scroll}>
-            {len.splice(1, len.length - 2).map((ingredient) => {
+  const boughtIngredients: Ingredient[] = ingredients.filter(
+    (item: Ingredient) => item.name.length <= 30
+  );
+  const ingredients_constructor = (): ReactNode => {
+    return (
+      <div className={mainStyle.all_options}>
+        <ConstructorElement
+          type="top"
+          isLocked={true}
+          text={boughtIngredients[0].name}
+          price={boughtIngredients[0].price}
+          thumbnail={boughtIngredients[0].image}
+          extraClass="ml-8"
+        />
+        <div className={mainStyle.scroll}>
+          {boughtIngredients
+            .splice(1, boughtIngredients.length - 2)
+            .map((ingredient: Ingredient, i: number) => {
               return (
-                <div className={mainStyle.inner_items}>
+                <div key={i} className={mainStyle.inner_items}>
                   <DragIcon type="primary" />
                   <ConstructorElement
                     text={ingredient.name}
@@ -45,37 +51,44 @@ class BurgerIngredients extends React.Component<any, any> {
                 </div>
               );
             })}
-          </div>
-
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={len[len.length - 1].name}
-            price={len[len.length - 1].price}
-            thumbnail={len[len.length - 1].image}
-            extraClass="ml-8"
-          />
         </div>
-      );
-    };
-    return (
-      <section className={mainStyle.section}>
-        <div>{ingredients_constructor()}</div>
-        <div className={mainStyle.div}>
-          <div className={mainStyle.price}>
-            <span className="text text_type_main-large">
-              {this.state.price}
-            </span>
-            <CurrencyIcon type="primary" />
-          </div>
 
-          <Button htmlType="button" type="primary" size="large">
-            Оформить заказ
-          </Button>
-        </div>
-      </section>
+        <ConstructorElement
+          type="bottom"
+          isLocked={true}
+          text={boughtIngredients[boughtIngredients.length - 1].name}
+          price={boughtIngredients[boughtIngredients.length - 1].price}
+          thumbnail={boughtIngredients[boughtIngredients.length - 1].image}
+          extraClass="ml-8"
+        />
+      </div>
     );
-  }
-}
+  };
+  return (
+    <section className={mainStyle.section}>
+      <div>{ingredients_constructor()}</div>
+      <div className={mainStyle.div}>
+        <div className={mainStyle.price}>
+          <span className={`${mainStyle.text}`}>{price}</span>
+          <CurrencyIcon type="primary" />
+        </div>
+        {opened && (
+          <>
+            <ModalOverlay changeOpen={changeOpen} />
+            <OrderDetails isVisible={isVisible} changeOpen={changeOpen} />
+          </>
+        )}
+        <Button
+          onClick={() => setOpened(true)}
+          htmlType="button"
+          type="primary"
+          size="large"
+        >
+          Оформить заказ
+        </Button>
+      </div>
+    </section>
+  );
+};
 
 export default BurgerIngredients;
