@@ -1,0 +1,54 @@
+.section_item {
+  display: flex;
+  flex-direction: row;
+  width: 62px;
+  justify-content: space-around;
+}
+
+.section {
+  width: 630px;
+  margin-bottom: 60px;
+}
+
+.scroll {
+  height: 760px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.div_main {
+  display: grid;
+  grid-template-columns: repeat(2, 300px);
+}
+
+.span {
+  position: relative;
+  bottom: 34px;
+}
+
+.div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.counter {
+  position: relative;
+  left: 100px;
+  bottom: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 0px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: #4c4cff;
+  color: white;
+}
+
+.svg {
+  position: relative;
+  z-index: 0;
+}
