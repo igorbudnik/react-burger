@@ -9,9 +9,11 @@
   font-weight: 400;
   margin: 0;
   margin-bottom: 32px;
+  margin-top: 40px;
 }
 
 .section {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;

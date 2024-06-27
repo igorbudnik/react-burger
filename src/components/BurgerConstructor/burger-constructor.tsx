@@ -5,9 +5,8 @@ import {
   Tab,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "../ModalOverlay/modal-overlay";
 import IngredientDetails from "../IngredientDetails/ingredient-details";
-import { useEffect } from "react";
+import Modal from "../Modal/modal";
 
 const Counter = () => {
   return (
@@ -36,8 +35,7 @@ const BurgerConstructor = (props: Ingredient[] | any) => {
   const { ingredients } = props;
   const [current, setCurrent] = useState<string>("one");
   const [opened, setOpened] = useState<boolean>(false);
-  const [child, setChild] = useState<Ingredient>();
-  const isVisible = true;
+  const [currentIngredient, setCurrentIngredient] = useState<Ingredient>();
 
   const changeOpen = (opener: boolean): void => {
     setOpened(opener);
@@ -61,7 +59,9 @@ const BurgerConstructor = (props: Ingredient[] | any) => {
           .map((ingredientType: Ingredient) => {
             return (
               <div
-                onClick={() => (setOpened(true), setChild(ingredientType))}
+                onClick={() => (
+                  setOpened(true), setCurrentIngredient(ingredientType)
+                )}
                 key={ingredientType._id}
                 className={mainStyle.div}
               >
@@ -109,12 +109,9 @@ const BurgerConstructor = (props: Ingredient[] | any) => {
 
       {opened && (
         <>
-          <ModalOverlay changeOpen={changeOpen} />
-          <IngredientDetails
-            isVisible={isVisible}
-            child={child}
-            changeOpen={changeOpen}
-          />
+          <Modal changeOpen={changeOpen}>
+            <IngredientDetails currentIngredient={currentIngredient} />
+          </Modal>
         </>
       )}
       <div className={mainStyle.scroll}>

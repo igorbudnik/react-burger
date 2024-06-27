@@ -27,16 +27,20 @@ function App() {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch(url);
-        const info = await res.json();
-        setIngredients(info.data);
-        setLoading(false);
-      } catch (err: any) {
-        setError(err);
-      }
-    })();
+    try {
+      fetch(url)
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          }
+          return Promise.reject(`Ошибка ${res.status}`);
+        })
+        .then((info) => (setIngredients(info.data), setLoading(false)))
+        .catch((err) => (setError(err), setLoading(false)));
+    } catch (err: any) {
+      setError(err);
+      setLoading(false);
+    }
   }, []);
 
   return (

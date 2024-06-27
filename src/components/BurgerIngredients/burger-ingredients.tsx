@@ -8,12 +8,11 @@ import {
 import { Ingredient } from "../App/app";
 import mainStyle from "../BurgerIngredients/burger-ingredients.module.css";
 import OrderDetails from "../OrderDetails/order-details";
-import ModalOverlay from "../ModalOverlay/modal-overlay";
+import Modal from "../Modal/modal";
 
 const BurgerIngredients = (props: Ingredient[] | any) => {
   const { ingredients } = props;
   const [opened, setOpened] = useState<boolean>(false);
-  const isVisible = false;
   const price: number = ingredients
     .filter((item: Ingredient) => item.name.length <= 30)
     .reduce((acc: number, x: Ingredient) => acc + Number(x.price), 0);
@@ -31,7 +30,7 @@ const BurgerIngredients = (props: Ingredient[] | any) => {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text={boughtIngredients[0].name}
+          text={boughtIngredients[0].name + " (верх)"}
           price={boughtIngredients[0].price}
           thumbnail={boughtIngredients[0].image}
           extraClass="ml-8"
@@ -56,7 +55,7 @@ const BurgerIngredients = (props: Ingredient[] | any) => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={boughtIngredients[boughtIngredients.length - 1].name}
+          text={boughtIngredients[boughtIngredients.length - 1].name + " (низ)"}
           price={boughtIngredients[boughtIngredients.length - 1].price}
           thumbnail={boughtIngredients[boughtIngredients.length - 1].image}
           extraClass="ml-8"
@@ -74,8 +73,9 @@ const BurgerIngredients = (props: Ingredient[] | any) => {
         </div>
         {opened && (
           <>
-            <ModalOverlay changeOpen={changeOpen} />
-            <OrderDetails isVisible={isVisible} changeOpen={changeOpen} />
+            <Modal changeOpen={changeOpen}>
+              <OrderDetails />
+            </Modal>
           </>
         )}
         <Button
