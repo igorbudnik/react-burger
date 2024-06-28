@@ -1,11 +1,14 @@
-import React from "react";
+import { ReactNode, useState } from "react";
 import mainStyle from "./burger-constructor.module.css";
+import { Ingredient } from "../App/app";
 import {
   Tab,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import IngredientDetails from "../IngredientDetails/ingredient-details";
+import Modal from "../Modal/modal";
 
-const Counter = (props: any) => {
+const Counter = () => {
   return (
     <div className={mainStyle.counter}>
       <p className="text text_type_main-default">
@@ -22,86 +25,111 @@ const Counter = (props: any) => {
             fill="#4C4CFF"
           />
         </svg>
-        <span className={mainStyle.span}>{props.count}</span>
+        <span className={mainStyle.span}>1</span>
       </p>
     </div>
   );
 };
 
-class BurgerConstructor extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
+const BurgerConstructor = (props: Ingredient[] | any) => {
+  const { ingredients } = props;
+  const [current, setCurrent] = useState<string>("one");
+  const [opened, setOpened] = useState<boolean>(false);
+  const [currentIngredient, setCurrentIngredient] = useState<Ingredient>();
 
-    this.state = {
-      current: "one",
-    };
-  }
+  const changeOpen = (opener: boolean): void => {
+    setOpened(opener);
+  };
 
-  render() {
-    const ingredients_need = (ingredient_type: string) => {
-      return (
-        <>
-          {this.props.ingredients
-            .filter((item: any) => item.type === ingredient_type)
-            .map((ingredient_type: any) => {
-              return (
-                <div key={ingredient_type._id} className={mainStyle.div}>
-                  <img src={ingredient_type.image} alt={ingredient_type.name} />
-                  {ingredient_type.name.length <= 30 && <Counter count={1} />}
-                  <section className={mainStyle.section_item}>
-                    <p className="text text_type_main-default">
-                      {ingredient_type.price}
-                    </p>
-                    <CurrencyIcon type="primary" />
-                  </section>
-                  <p className="text text_type_main-default">
-                    {ingredient_type.name}
-                  </p>
-                </div>
-              );
-            })}
-        </>
-      );
-    };
+  const scroll = (tab: string) => {
+    const elem = document.getElementById(tab);
+    if (elem) {
+      elem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const ingredientsNeed = (ingredientType: string): ReactNode => {
     return (
-      <section className={mainStyle.section}>
-        <p className="text text_type_main-large mt-10">Соберите бургер</p>
-        <div
-          style={{ display: "flex", marginTop: "20px", marginBottom: "40px" }}
-        >
-          <Tab
-            value="one"
-            active={this.state.current === "one"}
-            onClick={() => this.setState({ current: "one" })}
-          >
-            Булки
-          </Tab>
-          <Tab
-            value="two"
-            active={this.state.current === "two"}
-            onClick={() => this.setState({ current: "two" })}
-          >
-            Соусы
-          </Tab>
-          <Tab
-            value="three"
-            active={this.state.current === "three"}
-            onClick={() => this.setState({ current: "three" })}
-          >
-            Начинки
-          </Tab>
-        </div>
-        <div className={mainStyle.scroll}>
-          <p className="text text_type_main-medium mb-6">Булки</p>
-          <div className={mainStyle.div_main}>{ingredients_need("bun")}</div>
-          <p className="text text_type_main-medium mt-10 mb-6">Соусы</p>
-          <div className={mainStyle.div_main}>{ingredients_need("sauce")}</div>
-          <p className="text text_type_main-medium mt-10 mb-6">Начинка</p>
-          <div className={mainStyle.div_main}>{ingredients_need("main")}</div>
-        </div>
-      </section>
+      <>
+        {ingredients
+          .filter((item: Ingredient) => item.type === ingredientType)
+          .map((ingredientType: Ingredient) => {
+            return (
+              <div
+                onClick={() => (
+                  setOpened(true), setCurrentIngredient(ingredientType)
+                )}
+                key={ingredientType._id}
+                className={mainStyle.div}
+              >
+                <img src={ingredientType.image} alt={ingredientType.name} />
+                {ingredientType.name.length <= 30 && <Counter />}
+                <section className={mainStyle.section_item}>
+                  <span className={mainStyle.text}>{ingredientType.price}</span>
+                  <CurrencyIcon type="primary" />
+                </section>
+                <p className="text text_type_main-default">
+                  {ingredientType.name}
+                </p>
+              </div>
+            );
+          })}
+      </>
     );
-  }
-}
+  };
+  return (
+    <section className={mainStyle.section}>
+      <p className="text text_type_main-large mt-10">Соберите бургер</p>
+      <div className={mainStyle.tab}>
+        <Tab
+          value="one"
+          active={current === "one"}
+          onClick={() => (setCurrent("one"), scroll("one"))}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value="two"
+          active={current === "two"}
+          onClick={() => (setCurrent("two"), scroll("two"))}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value="three"
+          active={current === "three"}
+          onClick={() => (setCurrent("three"), scroll("three"))}
+        >
+          Начинки
+        </Tab>
+      </div>
+
+      {opened && (
+        <>
+          <Modal changeOpen={changeOpen}>
+            <IngredientDetails currentIngredient={currentIngredient} />
+          </Modal>
+        </>
+      )}
+      <div className={mainStyle.scroll}>
+        <p id="one" className="text text_type_main-medium mb-6">
+          Булки
+        </p>
+        <div className={mainStyle.div_main}>{ingredientsNeed("bun")}</div>
+        <p id="two" className="text text_type_main-medium mt-10 mb-6">
+          Соусы
+        </p>
+        <div className={mainStyle.div_main}>{ingredientsNeed("sauce")}</div>
+        <p id="three" className="text text_type_main-medium mt-10 mb-6">
+          Начинка
+        </p>
+        <div className={mainStyle.div_main}>{ingredientsNeed("main")}</div>
+      </div>
+    </section>
+  );
+};
 
 export default BurgerConstructor;

@@ -1,0 +1,64 @@
+:root {
+  --width: 720px;
+  --height: 539px;
+}
+
+.h1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.full {
+  height: 100%;
+  width: 100%;
+}
+
+.modal {
+  position: fixed;
+  top: calc(50% - var(--height) / 2);
+  left: calc(50% - var(--width) / 2);
+  min-width: var(--width);
+  min-height: var(--height);
+  background-color: #1c1c21;
+  border-radius: 40px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 40px 40px 60px 40px;
+}
+
+.ul {
+  width: 516px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: start;
+  padding: 0;
+  margin-top: 32px;
+}
+
+.li {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  height: 56px;
+  text-align: center;
+  justify-content: space-between;
+}
+
+.close {
+  position: absolute;
+  right: 40px;
+  top: 50px;
+}
+
+.img {
+  margin-top: 16px;
+}
