@@ -37,7 +37,7 @@ const BurgerIngredients = (props: Ingredient[] | any) => {
         />
         <div className={mainStyle.scroll}>
           {boughtIngredients
-            .splice(1, boughtIngredients.length - 2)
+            .splice(1, boughtIngredients.length - 1)
             .map((ingredient: Ingredient, i: number) => {
               return (
                 <div key={i} className={mainStyle.inner_items}>
@@ -55,9 +55,9 @@ const BurgerIngredients = (props: Ingredient[] | any) => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text={boughtIngredients[boughtIngredients.length - 1].name + " (низ)"}
-          price={boughtIngredients[boughtIngredients.length - 1].price}
-          thumbnail={boughtIngredients[boughtIngredients.length - 1].image}
+          text={boughtIngredients[0].name + " (низ)"}
+          price={boughtIngredients[0].price}
+          thumbnail={boughtIngredients[0].image}
           extraClass="ml-8"
         />
       </div>
