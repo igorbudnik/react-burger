@@ -8,11 +8,11 @@ import ModalOverlay from "../ModalOverlay/modal-overlay";
 const modalRoot = document.getElementById("react-modals") as HTMLElement;
 
 const Modal = (props: AppProps) => {
-  const { changeOpen, children } = props;
+  const { changeClose, children } = props;
 
   const modalEsc = (e: any) => {
     if (e.key === "Escape") {
-      changeOpen(false);
+      changeClose();
     }
   };
   useEffect(() => {
@@ -22,11 +22,11 @@ const Modal = (props: AppProps) => {
   }, []);
   return ReactDOM.createPortal(
     <div tabIndex={0} className={modalStyle.full}>
-      <ModalOverlay changeOpen={changeOpen} />
+      <ModalOverlay changeOpen={changeClose} />
       <div className={modalStyle.modal}>
         <section id="head" className={modalStyle.section}>
           <div className={modalStyle.close}>
-            <CloseIcon type="primary" onClick={() => changeOpen(false)} />
+            <CloseIcon type="primary" onClick={() => changeClose()} />
           </div>
           {children}
         </section>

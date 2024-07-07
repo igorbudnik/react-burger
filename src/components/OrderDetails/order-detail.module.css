@@ -23,3 +23,12 @@
 .img {
   margin: 60px 0px 60px 0px;
 }
+
+.head {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-family: "Iceland", Arial, sans-serif;
+}

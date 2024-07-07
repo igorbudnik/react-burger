@@ -1,93 +1,179 @@
-import React, { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
+import mainStyle from "./burger-ingredients.module.css";
+import { Ingredient } from "../App/app";
 import {
-  ConstructorElement,
-  DragIcon,
-  Button,
+  Tab,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../App/app";
-import mainStyle from "../BurgerIngredients/burger-ingredients.module.css";
-import OrderDetails from "../OrderDetails/order-details";
+import IngredientDetails from "../IngredientDetails/ingredient-details";
 import Modal from "../Modal/modal";
+import { useAppDispatch, useAppSelector } from "../..";
+import {
+  SHOW_INGREDIENT,
+  CLOSE_INGREDIENT,
+} from "../../services/actions/details";
+import { useDrag } from "react-dnd";
 
-const BurgerIngredients = (props: Ingredient[] | any) => {
-  const { ingredients } = props;
-  const [opened, setOpened] = useState<boolean>(false);
-  const price: number = ingredients
-    .filter((item: Ingredient) => item.name.length <= 30)
-    .reduce((acc: number, x: Ingredient) => acc + Number(x.price), 0);
+const Counter = (props: any) => {
+  return (
+    <div className={mainStyle.counter}>
+      <p className="text text_type_main-default">
+        <svg
+          className={mainStyle.svg}
+          width="32"
+          height="32"
+          viewBox="0 0 32 32"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z"
+            fill="#4C4CFF"
+          />
+        </svg>
+        <span className={mainStyle.span}>{props.count}</span>
+      </p>
+    </div>
+  );
+};
 
-  const changeOpen = (opener: boolean): void => {
-    setOpened(opener);
+const BurgerIngredients = () => {
+  const dispatch = useAppDispatch();
+  const { ingredient, ingredientOpened } = useAppSelector(
+    (store) => store.chosenIngredientReducer
+  );
+  const { allIngredients } = useAppSelector(
+    (store) => store.getIngredientsReducer
+  );
+  const [current, setCurrent] = useState<string>("one");
+
+  const scroll = (tab: string) => {
+    const elem = document.getElementById(tab);
+    if (elem) {
+      elem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
 
-  const boughtIngredients: Ingredient[] = ingredients.filter(
-    (item: Ingredient) => item.name.length <= 30
-  );
-  const ingredients_constructor = (): ReactNode => {
-    return (
-      <div className={mainStyle.all_options}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={boughtIngredients[0].name + " (верх)"}
-          price={boughtIngredients[0].price}
-          thumbnail={boughtIngredients[0].image}
-          extraClass="ml-8"
-        />
-        <div className={mainStyle.scroll}>
-          {boughtIngredients
-            .splice(1, boughtIngredients.length - 1)
-            .map((ingredient: Ingredient, i: number) => {
+  const setClosed = () => {
+    dispatch({ type: CLOSE_INGREDIENT });
+  };
+
+  return (
+    <section className={mainStyle.section}>
+      <p className="text text_type_main-large mt-10">Соберите бургер</p>
+      <div className={mainStyle.tab}>
+        <Tab
+          value="one"
+          active={current === "one"}
+          onClick={() => (setCurrent("one"), scroll("one"))}
+        >
+          Булки
+        </Tab>
+        <Tab
+          value="two"
+          active={current === "two"}
+          onClick={() => (setCurrent("two"), scroll("two"))}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value="three"
+          active={current === "three"}
+          onClick={() => (setCurrent("three"), scroll("three"))}
+        >
+          Начинки
+        </Tab>
+      </div>
+
+      {ingredientOpened && (
+        <>
+          <Modal changeClose={setClosed}>
+            <IngredientDetails currentIngredient={ingredient} />
+          </Modal>
+        </>
+      )}
+      <div className={mainStyle.scroll}>
+        <p id="one" className="text text_type_main-medium mb-6">
+          Булки
+        </p>
+        <div className={mainStyle.div_main}>
+          {allIngredients
+            .filter((item: Ingredient) => item.type === "bun")
+            .map((ingredient: Ingredient, index: number) => {
+              return <IngredientsNeed key={index} ingredient={ingredient} />;
+            })}
+        </div>
+        <p id="two" className="text text_type_main-medium mt-10 mb-6">
+          Соусы
+        </p>
+        <div className={mainStyle.div_main}>
+          {allIngredients
+            .filter((item: Ingredient) => item.type === "sauce")
+            .map((ingredient: Ingredient, index: number) => {
               return (
-                <div key={i} className={mainStyle.inner_items}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
-                  />
-                </div>
+                <IngredientsNeed
+                  key={(index + 1) * 10}
+                  ingredient={ingredient}
+                />
               );
             })}
         </div>
-
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={boughtIngredients[0].name + " (низ)"}
-          price={boughtIngredients[0].price}
-          thumbnail={boughtIngredients[0].image}
-          extraClass="ml-8"
-        />
-      </div>
-    );
-  };
-  return (
-    <section className={mainStyle.section}>
-      <div>{ingredients_constructor()}</div>
-      <div className={mainStyle.div}>
-        <div className={mainStyle.price}>
-          <span className={`${mainStyle.text}`}>{price}</span>
-          <CurrencyIcon type="primary" />
+        <p id="three" className="text text_type_main-medium mt-10 mb-6">
+          Начинка
+        </p>
+        <div className={mainStyle.div_main}>
+          {allIngredients
+            .filter((item: Ingredient) => item.type === "main")
+            .map((ingredient: Ingredient, index: number) => {
+              return (
+                <IngredientsNeed
+                  key={(index + 1) * 20}
+                  ingredient={ingredient}
+                />
+              );
+            })}
         </div>
-        {opened && (
-          <>
-            <Modal changeOpen={changeOpen}>
-              <OrderDetails />
-            </Modal>
-          </>
-        )}
-        <Button
-          onClick={() => setOpened(true)}
-          htmlType="button"
-          type="primary"
-          size="large"
-        >
-          Оформить заказ
-        </Button>
       </div>
     </section>
+  );
+};
+
+const IngredientsNeed = (props: any) => {
+  const { ingredient } = props;
+  const [, dragRef] = useDrag(
+    {
+      type: ingredient.type,
+      item: { ...ingredient },
+    },
+    []
+  );
+  const dispatch = useAppDispatch();
+  const setOpened = (ingredient: Ingredient) => {
+    dispatch({ type: SHOW_INGREDIENT, ingredient });
+  };
+
+  return (
+    <>
+      <div
+        ref={dragRef}
+        onClick={() => setOpened(ingredient)}
+        key={ingredient._id}
+        className={mainStyle.div}
+      >
+        <img src={ingredient.image} alt={ingredient.name} />
+        {ingredient.__v > 0 && (
+          <Counter key={ingredient._id} count={ingredient.__v} />
+        )}
+        <section className={mainStyle.section_item}>
+          <span className={mainStyle.text}>{ingredient.price}</span>
+          <CurrencyIcon type="primary" />
+        </section>
+        <p className="text text_type_main-default">{ingredient.name}</p>
+      </div>
+    </>
   );
 };
 

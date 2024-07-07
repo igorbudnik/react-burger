@@ -4,11 +4,11 @@ import { ReactNode } from "react";
 
 export interface AppProps {
   currentIngredient?: Ingredient;
-  changeOpen: (opener: boolean) => void;
+  changeClose: () => void;
   children: ReactNode;
 }
 
-const OrderDetails = (props: Ingredient | any) => {
+const OrderDetails = (props: any) => {
   const { currentIngredient } = props;
   return (
     <>

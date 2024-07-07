@@ -3,13 +3,26 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./components/App/app";
 import reportWebVitals from "./reportWebVitals";
+import { rootReducer } from "./services/reducers/index";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector } from "react-redux";
+
+const store = configureStore({ reducer: rootReducer });
+export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
+export const useAppSelector = useSelector.withTypes<RootState>();
+type RootState = ReturnType<typeof store.getState>;
+type AppDispatch = typeof store.dispatch;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
