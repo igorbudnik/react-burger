@@ -4,11 +4,15 @@ interface Initial {
   orderOpened: boolean;
 }
 
+type ActionType = {
+  type: string;
+};
+
 const initialState: Initial = {
   orderOpened: false,
 };
 
-export const orderReducer = (state = initialState, action: any) => {
+export const orderReducer = (state = initialState, action: ActionType) => {
   switch (action.type) {
     case SHOW_ORDER: {
       return {

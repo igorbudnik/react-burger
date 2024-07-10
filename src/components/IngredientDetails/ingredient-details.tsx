@@ -3,12 +3,10 @@ import { Ingredient } from "../App/app";
 import { ReactNode } from "react";
 
 export interface AppProps {
-  currentIngredient?: Ingredient;
-  changeClose: () => void;
-  children: ReactNode;
+  currentIngredient: Ingredient;
 }
 
-const OrderDetails = (props: any) => {
+const OrderDetails = (props: AppProps) => {
   const { currentIngredient } = props;
   return (
     <>

@@ -2,16 +2,19 @@ import { SHOW_INGREDIENT, CLOSE_INGREDIENT } from "../actions/details";
 import { Ingredient } from "../../components/App/app";
 
 interface Initial {
-  ingredient: Ingredient[] | [];
+  ingredient: Ingredient | any;
   ingredientOpened: boolean;
 }
 
 const initialState: Initial = {
-  ingredient: [],
+  ingredient: "",
   ingredientOpened: false,
 };
 
-export const chosenIngredientReducer = (state = initialState, action: any) => {
+export const chosenIngredientReducer = (
+  state = initialState,
+  action: { type: string; ingredient: Ingredient[] }
+) => {
   switch (action.type) {
     case SHOW_INGREDIENT: {
       return {

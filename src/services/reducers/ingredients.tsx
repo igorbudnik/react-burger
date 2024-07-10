@@ -11,14 +11,20 @@ import {
   CHANGE_INGREDIENTS_PLACE,
 } from "../actions/ingredients";
 import { Ingredient } from "../../components/App/app";
-import { IngredientsConstructor } from "../../components/BurgerConstructor/burger-element";
+
+type ActionType = {
+  type: string;
+  ingredients: Ingredient[];
+  payload: Ingredient;
+  orderNumber: string;
+};
 
 interface Initial {
-  allIngredients: Ingredient[] | [];
+  allIngredients: Ingredient[];
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
 
-  ingredientsConstructor: Ingredient[] | [];
+  ingredientsConstructor: Ingredient[];
   bun: any;
 
   orderRequest: boolean;
@@ -37,7 +43,10 @@ const initialState: Initial = {
   orderNumber: "",
 };
 
-export const getIngredientsReducer = (state = initialState, action: any) => {
+export const getIngredientsReducer = (
+  state = initialState,
+  action: ActionType
+) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -47,7 +56,7 @@ export const getIngredientsReducer = (state = initialState, action: any) => {
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        allIngredients: [...action.payload],
+        allIngredients: [...action.ingredients],
         ingredientsFailed: false,
         ingredientsRequest: true,
       };
@@ -126,7 +135,7 @@ export const getIngredientsReducer = (state = initialState, action: any) => {
     case GET_ORDER_SUCCESS: {
       return {
         ...state,
-        orderNumber: action.payload,
+        orderNumber: action.orderNumber,
         orderFailed: false,
         orderRequest: true,
       };

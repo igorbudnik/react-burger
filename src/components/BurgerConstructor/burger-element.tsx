@@ -125,7 +125,14 @@ export const IngredientsConstructor = () => {
   );
 };
 
-const DraggngElement = (props: any) => {
+type DragType = {
+  ingredient: Ingredient;
+  index: number;
+  id: number;
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
+};
+
+const DraggngElement = (props: DragType) => {
   const dispatch = useAppDispatch();
   const { ingredient, index, id, moveCard } = props;
 

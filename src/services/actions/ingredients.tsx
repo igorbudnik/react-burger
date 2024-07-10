@@ -1,3 +1,5 @@
+import { AppDispatch } from "../..";
+
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_FAILED = "GET_INGREDIENTS_FAILED";
@@ -12,8 +14,8 @@ export const CHANGE_INGREDIENTS_PLACE = "CHANGE_INGREDIENTS_PLACE";
 export const url = "https://norma.nomoreparties.space/api/ingredients";
 export const post_url = "https://norma.nomoreparties.space/api/orders";
 
-export function getIngredients(): any {
-  return function (dispatch: any) {
+export function getIngredients() {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST,
     });
@@ -23,7 +25,7 @@ export function getIngredients(): any {
         if (res && res.success) {
           dispatch({
             type: GET_INGREDIENTS_SUCCESS,
-            payload: res.data,
+            ingredients: res.data,
           });
         } else {
           dispatch({
@@ -40,7 +42,7 @@ export function getIngredients(): any {
 }
 
 export const getOrder = (ingredients: string[]) => {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: GET_ORDER_REQUEST,
     });
@@ -58,7 +60,7 @@ export const getOrder = (ingredients: string[]) => {
         if (res && res.success) {
           dispatch({
             type: GET_ORDER_SUCCESS,
-            payload: res.order.number,
+            orderNumber: res.order.number,
           });
         } else {
           dispatch({

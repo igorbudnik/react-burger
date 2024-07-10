@@ -11,8 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 const store = configureStore({ reducer: rootReducer });
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>();
 export const useAppSelector = useSelector.withTypes<RootState>();
-type RootState = ReturnType<typeof store.getState>;
-type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
