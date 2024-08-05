@@ -1,4 +1,5 @@
 import { AppDispatch } from "../..";
+import { Ingredient } from "../../pages/main-page";
 
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -10,6 +11,7 @@ export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
 export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 export const CHANGE_INGREDIENTS_PLACE = "CHANGE_INGREDIENTS_PLACE";
+export const COMPARE_INGREDIENTS = "COMPARE_INGREDIENTS";
 
 export const url = "https://norma.nomoreparties.space/api/ingredients";
 export const post_url = "https://norma.nomoreparties.space/api/orders";

@@ -1,62 +1,36 @@
-import { useEffect, useMemo } from "react";
-import AppStyle from "./app.module.css";
-import AppHeader from "../AppHeader/app-header";
-import BurgerIngredients from "../BurgerIngredients/burger-ingredients";
-import BurgerConstructor from "../BurgerConstructor/burger-constructor";
-import { getIngredients } from "../../services/actions/ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import MainPage from "../../pages/main-page";
+import ErrorPage from "../../pages/error-page";
+import LoginPage from "../../pages/login-page";
+import RegisterPage from "../../pages/register-page";
+import ForgotPage from "../../pages/forgot-password-page";
+import ResetPage from "../../pages/reset-password-page";
+import ProfilePage from "../../pages/profile-page";
+import IngredientPage from "../../pages/ingredient-page";
+import HOCelement from "../../pages/hoc-log-reg";
+import { ProtectedRouteElement } from "../../services/protected-route";
 
-import { useAppDispatch, useAppSelector } from "../..";
+const LoginPageHOC = HOCelement(LoginPage);
+const RegisterPageHOC = HOCelement(RegisterPage);
+const ForgotPageHOC = HOCelement(ForgotPage);
+const ResetPageHOC = HOCelement(ResetPage);
+const ProfilePageHOC = HOCelement(ProfilePage);
 
-export interface Ingredient {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-  uid?: string;
-}
-
-function App() {
-  const dispatch = useAppDispatch();
-  const { allIngredients, ingredientsFailed, ingredientsRequest } =
-    useAppSelector((store) => store.getIngredientsReducer);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
-
-  const content = useMemo(() => {
-    return ingredientsRequest ? (
-      ingredientsFailed ? (
-        "Ошибка"
-      ) : (
-        <>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </>
-      )
-    ) : (
-      "Загрузка"
-    );
-  }, [allIngredients, ingredientsRequest, ingredientsFailed]);
-
+export default function App() {
   return (
-    <>
-      <AppHeader />
-      <DndProvider backend={HTML5Backend}>
-        <main className={AppStyle.main}>{content}</main>
-      </DndProvider>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route element={<ProtectedRouteElement />}>
+          <Route path="/profile" element={<ProfilePageHOC />} />
+        </Route>
+        <Route path="/ingredients/:id" element={<IngredientPage />} />
+        <Route path="/login" element={<LoginPageHOC />} />
+        <Route path="/register" element={<RegisterPageHOC />} />
+        <Route path="/forgot-password" element={<ForgotPageHOC />} />
+        <Route path="/reset-password" element={<ResetPageHOC />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;

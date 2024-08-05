@@ -6,13 +6,23 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import headerStyle from "./app-header.module.css";
+import { useNavigate } from "react-router-dom";
+import { SyntheticEvent } from "react";
 
 const AppHeader = () => {
+  const navigate = useNavigate();
+
+  const changePage = (e: SyntheticEvent, url: string) => {
+    e.preventDefault();
+    navigate(url);
+  };
+
   return (
     <header className={headerStyle.header}>
       <nav className={headerStyle.nav}>
         <section className={headerStyle.button_left}>
           <Button
+            onClick={(e) => changePage(e, "/")}
             extraClass={headerStyle.button}
             htmlType="button"
             type="secondary"
@@ -37,6 +47,7 @@ const AppHeader = () => {
         </section>
         <section>
           <Button
+            onClick={(e) => changePage(e, "/profile")}
             extraClass={headerStyle.button}
             htmlType="button"
             type="secondary"

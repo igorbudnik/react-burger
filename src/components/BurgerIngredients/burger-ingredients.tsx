@@ -7,15 +7,17 @@ import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "../..";
 import { CLOSE_INGREDIENT } from "../../services/actions/details";
 import CatigoryIngredient from "./category-ingredient";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const BurgerIngredients = () => {
   const dispatch = useAppDispatch();
-  const { ingredient, ingredientOpened } = useAppSelector(
+  const { state } = useLocation();
+  const { ingredient } = useAppSelector(
     (store) => store.chosenIngredientReducer
   );
-
   const [current, setCurrent] = useState<string>("one");
-
+  console.log(state);
+  const navigate = useNavigate();
   const scroll = (tab: string) => {
     const elem = document.getElementById(tab);
     if (elem) {
@@ -28,6 +30,8 @@ const BurgerIngredients = () => {
 
   const setClosed = () => {
     dispatch({ type: CLOSE_INGREDIENT });
+    navigate("/");
+    localStorage.setItem("modal", "");
   };
 
   return (
@@ -57,10 +61,12 @@ const BurgerIngredients = () => {
         </Tab>
       </div>
 
-      {ingredientOpened && (
+      {localStorage.getItem("modal") === "opened" && (
         <>
           <Modal changeClose={setClosed}>
-            <OrderDetails currentIngredient={ingredient} />
+            <OrderDetails
+              currentIngredient={state ? state.ingredient : ingredient}
+            />
           </Modal>
         </>
       )}

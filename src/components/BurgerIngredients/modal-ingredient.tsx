@@ -1,32 +1,34 @@
 import modalStyle from "../Modal/modal.module.css";
 import { Ingredient } from "../../pages/main-page";
 
-export interface AppProps {
-  currentIngredient: Ingredient;
+interface ModalIngredientType {
+  modalIngredient: Ingredient;
 }
 
-const OrderDetails = (props: AppProps) => {
-  const { currentIngredient } = props;
+const ModalIngredient = (props: ModalIngredientType) => {
+  const { modalIngredient } = props;
+  console.log(modalIngredient);
+
   return (
-    <>
+    <div>
       <h1 className={`${modalStyle.h1} text text_type_main-large`}>
         Детали ингредиента
       </h1>
       <img
         className={modalStyle.img}
-        src={currentIngredient?.image}
-        alt={currentIngredient?.name}
+        src={modalIngredient?.image}
+        alt={modalIngredient?.name}
         height={240}
         width={520}
       />
-      <h2 className="text text_type_main-medium">{currentIngredient?.name}</h2>
+      <h2 className="text text_type_main-medium">{modalIngredient?.name}</h2>
       <ul className={modalStyle.ul}>
         <li className={modalStyle.li}>
           <span className="text text_type_main-default text_color_inactive">
             <b>Калории,ккал</b>
           </span>
           <span className="text text_type_main-medium text_color_inactive">
-            <b>{currentIngredient?.calories}</b>
+            <b>{modalIngredient?.calories}</b>
           </span>
         </li>
         <li className={modalStyle.li}>
@@ -34,7 +36,7 @@ const OrderDetails = (props: AppProps) => {
             <b>Белки, г</b>
           </span>
           <span className="text text_type_main-medium text_color_inactive">
-            <b>{currentIngredient?.proteins}</b>
+            <b>{modalIngredient?.proteins}</b>
           </span>
         </li>
         <li className={modalStyle.li}>
@@ -42,7 +44,7 @@ const OrderDetails = (props: AppProps) => {
             <b>Жиры, г</b>
           </span>
           <span className="text text_type_main-medium text_color_inactive">
-            <b>{currentIngredient?.fat}</b>
+            <b>{modalIngredient?.fat}</b>
           </span>
         </li>
         <li className={modalStyle.li}>
@@ -50,12 +52,12 @@ const OrderDetails = (props: AppProps) => {
             <b>Углеводы, г</b>
           </span>
           <span className="text text_type_main-medium text_color_inactive">
-            <b>{currentIngredient?.carbohydrates}</b>
+            <b>{modalIngredient?.carbohydrates}</b>
           </span>
         </li>
       </ul>
-    </>
+    </div>
   );
 };
 
-export default OrderDetails;
+export default ModalIngredient;

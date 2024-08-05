@@ -1,9 +1,10 @@
 import mainStyle from "./burger-ingredients.module.css";
-import { Ingredient } from "../App/app";
+import { Ingredient } from "../../pages/main-page";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch } from "../..";
 import { SHOW_INGREDIENT } from "../../services/actions/details";
 import { useDrag } from "react-dnd";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 type PropsType = {
   ingredient: Ingredient;
@@ -39,6 +40,7 @@ const Counter = (props: CounterProps) => {
 
 const IngredientsNeed = (props: PropsType) => {
   const { ingredient } = props;
+  const navigate = useNavigate();
   const [, dragRef] = useDrag(
     {
       type: ingredient.type,
@@ -46,9 +48,14 @@ const IngredientsNeed = (props: PropsType) => {
     },
     []
   );
+
   const dispatch = useAppDispatch();
   const setOpened = (ingredient: Ingredient) => {
     dispatch({ type: SHOW_INGREDIENT, ingredient });
+    localStorage.setItem("modal", "opened");
+    navigate(`/ingredients/${ingredient._id}`, {
+      state: { ingredient: ingredient },
+    });
   };
 
   return (

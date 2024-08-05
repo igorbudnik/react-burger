@@ -3,7 +3,7 @@ import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../App/app";
+import { Ingredient } from "../../pages/main-page";
 import mainStyle from "./burger-constructor.module.css";
 import OrderDetails from "../OrderDetails/order-details";
 import Modal from "../Modal/modal";
