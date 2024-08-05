@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import AppStyle from "./app.module.css";
 import AppHeader from "../AppHeader/app-header";
-import BurgerConstructor from "../BurgerConstructor/burger-constructor";
 import BurgerIngredients from "../BurgerIngredients/burger-ingredients";
+import BurgerConstructor from "../BurgerConstructor/burger-constructor";
+import { getIngredients } from "../../services/actions/ingredients";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-const url = "https://norma.nomoreparties.space/api/ingredients";
+import { useAppDispatch, useAppSelector } from "../..";
 
 export interface Ingredient {
   _id: string;
@@ -19,43 +22,39 @@ export interface Ingredient {
   image_mobile: string;
   image_large: string;
   __v: number;
+  uid?: string;
 }
 
 function App() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-  const [error, setError] = useState<any>(null);
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
+  const { allIngredients, ingredientsFailed, ingredientsRequest } =
+    useAppSelector((store) => store.getIngredientsReducer);
 
   useEffect(() => {
-    try {
-      fetch(url)
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка ${res.status}`);
-        })
-        .then((info) => (setIngredients(info.data), setLoading(false)))
-        .catch((err) => (setError(err), setLoading(false)));
-    } catch (err: any) {
-      setError(err);
-      setLoading(false);
-    }
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
+
+  const content = useMemo(() => {
+    return ingredientsRequest ? (
+      ingredientsFailed ? (
+        "Ошибка"
+      ) : (
+        <>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </>
+      )
+    ) : (
+      "Загрузка"
+    );
+  }, [allIngredients, ingredientsRequest, ingredientsFailed]);
 
   return (
     <>
       <AppHeader />
-      {isLoading ? (
-        ""
-      ) : error ? (
-        <main className={AppStyle.main}>{error}</main>
-      ) : (
-        <main className={AppStyle.main}>
-          <BurgerConstructor ingredients={[...ingredients]} />
-          <BurgerIngredients ingredients={[...ingredients]} />
-        </main>
-      )}
+      <DndProvider backend={HTML5Backend}>
+        <main className={AppStyle.main}>{content}</main>
+      </DndProvider>
     </>
   );
 }

@@ -1,91 +1,88 @@
-import React, { ReactNode, useState } from "react";
-import {
-  ConstructorElement,
-  DragIcon,
-  Button,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../App/app";
-import mainStyle from "../BurgerIngredients/burger-ingredients.module.css";
-import OrderDetails from "../OrderDetails/order-details";
+import { useState } from "react";
+import mainStyle from "./burger-ingredients.module.css";
+
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import OrderDetails from "../IngredientDetails/ingredient-details";
 import Modal from "../Modal/modal";
+import { useAppDispatch, useAppSelector } from "../..";
+import { CLOSE_INGREDIENT } from "../../services/actions/details";
+import CatigoryIngredient from "./category-ingredient";
 
-const BurgerIngredients = (props: Ingredient[] | any) => {
-  const { ingredients } = props;
-  const [opened, setOpened] = useState<boolean>(false);
-  const price: number = ingredients
-    .filter((item: Ingredient) => item.name.length <= 30)
-    .reduce((acc: number, x: Ingredient) => acc + Number(x.price), 0);
-
-  const changeOpen = (opener: boolean): void => {
-    setOpened(opener);
-  };
-
-  const boughtIngredients: Ingredient[] = ingredients.filter(
-    (item: Ingredient) => item.name.length <= 30
+const BurgerIngredients = () => {
+  const dispatch = useAppDispatch();
+  const { ingredient, ingredientOpened } = useAppSelector(
+    (store) => store.chosenIngredientReducer
   );
-  const ingredients_constructor = (): ReactNode => {
-    return (
-      <div className={mainStyle.all_options}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={boughtIngredients[0].name + " (верх)"}
-          price={boughtIngredients[0].price}
-          thumbnail={boughtIngredients[0].image}
-          extraClass="ml-8"
-        />
-        <div className={mainStyle.scroll}>
-          {boughtIngredients
-            .splice(1, boughtIngredients.length - 1)
-            .map((ingredient: Ingredient, i: number) => {
-              return (
-                <div key={i} className={mainStyle.inner_items}>
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    text={ingredient.name}
-                    price={ingredient.price}
-                    thumbnail={ingredient.image}
-                  />
-                </div>
-              );
-            })}
-        </div>
 
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={boughtIngredients[0].name + " (низ)"}
-          price={boughtIngredients[0].price}
-          thumbnail={boughtIngredients[0].image}
-          extraClass="ml-8"
-        />
-      </div>
-    );
+  const [current, setCurrent] = useState<string>("one");
+
+  const scroll = (tab: string) => {
+    const elem = document.getElementById(tab);
+    if (elem) {
+      elem.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
   };
+
+  const setClosed = () => {
+    dispatch({ type: CLOSE_INGREDIENT });
+  };
+
   return (
     <section className={mainStyle.section}>
-      <div>{ingredients_constructor()}</div>
-      <div className={mainStyle.div}>
-        <div className={mainStyle.price}>
-          <span className={`${mainStyle.text}`}>{price}</span>
-          <CurrencyIcon type="primary" />
-        </div>
-        {opened && (
-          <>
-            <Modal changeOpen={changeOpen}>
-              <OrderDetails />
-            </Modal>
-          </>
-        )}
-        <Button
-          onClick={() => setOpened(true)}
-          htmlType="button"
-          type="primary"
-          size="large"
+      <p className="text text_type_main-large mt-10">Соберите бургер</p>
+      <div className={mainStyle.tab}>
+        <Tab
+          value="one"
+          active={current === "one"}
+          onClick={() => (setCurrent("one"), scroll("one"))}
         >
-          Оформить заказ
-        </Button>
+          Булки
+        </Tab>
+        <Tab
+          value="two"
+          active={current === "two"}
+          onClick={() => (setCurrent("two"), scroll("two"))}
+        >
+          Соусы
+        </Tab>
+        <Tab
+          value="three"
+          active={current === "three"}
+          onClick={() => (setCurrent("three"), scroll("three"))}
+        >
+          Начинки
+        </Tab>
+      </div>
+
+      {ingredientOpened && (
+        <>
+          <Modal changeClose={setClosed}>
+            <OrderDetails currentIngredient={ingredient} />
+          </Modal>
+        </>
+      )}
+      <div className={mainStyle.scroll}>
+        <p id="one" className="text text_type_main-medium mb-6">
+          Булки
+        </p>
+        <div className={mainStyle.div_main}>
+          <CatigoryIngredient category={"bun"} />
+        </div>
+        <p id="two" className="text text_type_main-medium mt-10 mb-6">
+          Соусы
+        </p>
+        <div className={mainStyle.div_main}>
+          <CatigoryIngredient category={"sauce"} />
+        </div>
+        <p id="three" className="text text_type_main-medium mt-10 mb-6">
+          Начинка
+        </p>
+        <div className={mainStyle.div_main}>
+          <CatigoryIngredient category={"main"} />
+        </div>
       </div>
     </section>
   );

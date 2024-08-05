@@ -1,67 +1,74 @@
-.section_item {
-  display: flex;
-  flex-direction: row;
-  width: 102px;
-  justify-content: center;
-  gap: 4px;
-  margin-bottom: 20px;
-}
-
-.text {
-  font-family: "Iceland", Arial, sans-serif;
-  font-size: 28px;
-}
-
-.tab {
-  display: flex;
-  margin-top: 20px;
+.section {
+  min-width: 600px;
   margin-bottom: 40px;
 }
 
-.section {
-  width: 630px;
-  margin-bottom: 60px;
-}
-
 .scroll {
-  height: 760px;
   overflow-y: scroll;
   scrollbar-width: thin;
-}
-
-.div_main {
-  display: grid;
-  grid-template-columns: repeat(2, 300px);
-}
-
-.span {
-  position: relative;
-  bottom: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .div {
   display: flex;
+  margin-top: 40px;
+  gap: 40px;
   align-items: center;
-  flex-direction: column;
-  text-align: center;
-  margin-bottom: 32px;
+  justify-content: end;
 }
 
-.counter {
-  position: relative;
-  left: 100px;
-  bottom: 100px;
+.all_options {
+  min-height: 752px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 0px;
-  width: 30px;
-  border-radius: 50%;
-  background-color: #4c4cff;
-  color: white;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 100px;
+  font-family: "Iceland", Arial, sans-serif;
 }
 
-.svg {
-  position: relative;
-  z-index: 0;
+.bun_top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80px;
+  border: 1px dashed blue;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  font-family: "Iceland", Arial, sans-serif;
+}
+
+.bun_bottom {
+  composes: bun_top;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+}
+.empty {
+  min-height: 560px;
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  composes: bun_bottom;
+}
+
+.inner_items {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.price {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.text {
+  font-family: "Iceland", Arial, sans-serif;
+  font-size: 48px;
 }
