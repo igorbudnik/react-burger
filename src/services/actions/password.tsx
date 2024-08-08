@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../..";
 import { refreshToken } from "../api";
 export const CHANGE_PASSWORD_REQUEST = "CHANGE_PASSWORD_REQUEST";
@@ -23,28 +22,14 @@ export const CHANGE_INFO_REQUEST = "CHANGE_INFO_REQUEST";
 export const CHANGE_INFO_SUCCESS = "CHANGE_INFO_SUCCESS";
 export const CHANGE_INFO_FAILED = "CHANGE_INFO_FAILED";
 
-export const change_password_url =
-  "https://norma.nomoreparties.space/api/password-reset";
-export const register_url =
-  "https://norma.nomoreparties.space/api/auth/register";
-export const reset_url =
-  "https://norma.nomoreparties.space/api/password-reset/reset";
-
-export const get_user_url = "https://norma.nomoreparties.space/api/auth/user";
-
-export const login_url = "https://norma.nomoreparties.space/api/auth/login";
-
-export const logout_url = "https://norma.nomoreparties.space/api/auth/logout";
-
-export const change_info_url =
-  "https://norma.nomoreparties.space/api/auth/user";
+const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 export const newPassword = (email: string) => {
   return function (dispatch: AppDispatch) {
     dispatch({
       type: CHANGE_PASSWORD_REQUEST,
     });
-    fetch(change_password_url, {
+    fetch(`${BASE_URL}password-reset`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -63,12 +48,14 @@ export const newPassword = (email: string) => {
           dispatch({
             type: CHANGE_PASSWORD_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: CHANGE_PASSWORD_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -78,7 +65,7 @@ export const registerUser = (name: string, email: string, password: string) => {
     dispatch({
       type: REGISTER_REQUEST,
     });
-    fetch(register_url, {
+    fetch(`${BASE_URL}auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -101,12 +88,14 @@ export const registerUser = (name: string, email: string, password: string) => {
           dispatch({
             type: REGISTER_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: REGISTER_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -116,7 +105,7 @@ export const resetPassword = (password: string, token: string) => {
     dispatch({
       type: RESET_REQUEST,
     });
-    fetch(reset_url, {
+    fetch(`${BASE_URL}password-reset/reset`, {
       method: "POST",
 
       headers: {
@@ -137,12 +126,14 @@ export const resetPassword = (password: string, token: string) => {
           dispatch({
             type: RESET_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: RESET_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -152,7 +143,7 @@ export const getUser = () => {
     dispatch({
       type: GET_USER_REQUEST,
     });
-    fetch(get_user_url, {
+    fetch(`${BASE_URL}auth/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -181,10 +172,11 @@ export const getUser = () => {
             dispatch({
               type: GET_USER_FAILED,
             });
+            return Promise.reject(`Ошибка: ${res.message}`);
           }
           if (res.message === "jwt expired") {
             refreshToken();
-            fetch(get_user_url, {
+            fetch(`${BASE_URL}auth/user`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json;charset=utf-8",
@@ -192,7 +184,7 @@ export const getUser = () => {
               },
             });
           } else {
-            return Promise.reject(res);
+            return Promise.reject(`Ошибка: ${res.message}`);
           }
         }
       })
@@ -200,6 +192,7 @@ export const getUser = () => {
         dispatch({
           type: GET_USER_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -209,7 +202,7 @@ export const loginUser = (userEmail: string, userPassword: string) => {
     dispatch({
       type: LOGIN_REQUEST,
     });
-    fetch(login_url, {
+    fetch(`${BASE_URL}auth/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -232,12 +225,14 @@ export const loginUser = (userEmail: string, userPassword: string) => {
           dispatch({
             type: LOGIN_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: LOGIN_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -247,7 +242,7 @@ export const logoutUser = () => {
     dispatch({
       type: LOGOUT_REQUEST,
     });
-    fetch(logout_url, {
+    fetch(`${BASE_URL}auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -265,12 +260,14 @@ export const logoutUser = () => {
           dispatch({
             type: LOGOUT_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: LOGOUT_FAILED,
         });
+        console.log(err);
       });
   };
 };
@@ -280,7 +277,7 @@ export const changeInfo = (name: string, email: string, password: string) => {
     dispatch({
       type: CHANGE_INFO_REQUEST,
     });
-    fetch(change_info_url, {
+    fetch(`${BASE_URL}auth/user`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
@@ -299,12 +296,14 @@ export const changeInfo = (name: string, email: string, password: string) => {
           dispatch({
             type: CHANGE_INFO_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: CHANGE_INFO_FAILED,
         });
+        console.log(err);
       });
   };
 };

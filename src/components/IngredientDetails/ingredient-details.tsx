@@ -5,7 +5,7 @@ export interface AppProps {
   currentIngredient: Ingredient;
 }
 
-const OrderDetails = (props: AppProps) => {
+const IngredientDetails = (props: AppProps) => {
   const { currentIngredient } = props;
   return (
     <>
@@ -58,4 +58,4 @@ const OrderDetails = (props: AppProps) => {
   );
 };
 
-export default OrderDetails;
+export default IngredientDetails;

@@ -3,10 +3,15 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useNavigate, NavLink } from "react-router-dom";
-import AppHeader from "../components/AppHeader/app-header";
 import loginStyles from "./login.module.css";
 import { useAppDispatch, useAppSelector } from "..";
-import { SyntheticEvent, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  SyntheticEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { changeInfo, logoutUser } from "../services/actions/password";
 
 interface profileProps {
@@ -66,7 +71,7 @@ const ProfilePage = (props: profileProps) => {
     { field: "Пароль", name: "password", value: "", active: false },
   ]);
 
-  const newInfo = (e: any, index: number) => {
+  const newInfo = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     setInfo(
       info.map((item, i) => {
         if (i === index) {
@@ -101,27 +106,24 @@ const ProfilePage = (props: profileProps) => {
         name: "email",
         value: localStorage.getItem("email") || "",
         active: false,
-      }, //поменять чтоб работало
+      },
       { field: "Пароль", name: "password", value: "", active: false },
     ]);
   };
 
-  const onChangeInfo = () => {
-    console.log(loginValue, emailValue);
+  const onChangeInfo = (event: SyntheticEvent) => {
+    event.preventDefault();
     dispatch(changeInfo(info[0].value, info[1].value, info[2].value));
   };
 
   useEffect(() => {
     if (passwordRequest) {
-      console.log(emailValue);
-
       navigate("/reset-password");
     }
   }, [passwordRequest, passwordFailed]);
 
   return (
     <>
-      <AppHeader />
       <div className={loginStyles.main}>
         <div className={loginStyles.inner}>
           <section className={loginStyles.left_section}>
@@ -150,45 +152,42 @@ const ProfilePage = (props: profileProps) => {
             </span>
           </section>
           <section className={loginStyles.section}>
-            {info.map((input, index) => {
-              return (
-                <Input
-                  key={index}
-                  type={"text"}
-                  placeholder={input.value ? "" : input.field}
-                  onChange={(e) => newInfo(e, index)}
-                  value={input.value}
-                  name={input.name}
-                  disabled={!input.active}
-                  icon={input.active ? "CheckMarkIcon" : "EditIcon"}
-                  onIconClick={() => onEditClick(index)}
-                  error={false}
-                  errorText={"Ошибка"}
-                  size={"default"}
-                  extraClass="ml-1"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              );
-            })}
-            <div className={loginStyles.confirm_button}>
-              <Button
-                onClick={cancelInfo}
-                htmlType="button"
-                type="secondary"
-                size="large"
-              >
-                Отменить
-              </Button>
-              <Button
-                onClick={onChangeInfo}
-                htmlType="button"
-                type="primary"
-                size="large"
-              >
-                Сохранить
-              </Button>
-            </div>
+            <form className={loginStyles.form} onSubmit={onChangeInfo}>
+              {info.map((input, index) => {
+                return (
+                  <Input
+                    key={index}
+                    type={"text"}
+                    placeholder={input.value ? "" : input.field}
+                    onChange={(e) => newInfo(e, index)}
+                    value={input.value}
+                    name={input.name}
+                    disabled={!input.active}
+                    icon={input.active ? "CheckMarkIcon" : "EditIcon"}
+                    onIconClick={() => onEditClick(index)}
+                    error={false}
+                    errorText={"Ошибка"}
+                    size={"default"}
+                    extraClass="ml-1"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                );
+              })}
+              <div className={loginStyles.confirm_button}>
+                <Button
+                  onClick={cancelInfo}
+                  htmlType="button"
+                  type="secondary"
+                  size="large"
+                >
+                  Отменить
+                </Button>
+                <Button htmlType="submit" type="primary" size="large">
+                  Сохранить
+                </Button>
+              </div>
+            </form>
           </section>
         </div>
       </div>

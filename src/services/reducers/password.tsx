@@ -204,6 +204,7 @@ export const userReducer = (state = initialState, action: IUserInterface) => {
         password: "",
         email: "",
         logoutRequest: true,
+        userRequest: false,
       };
     }
     case LOGOUT_FAILED: {

@@ -33,12 +33,14 @@ export function getIngredients() {
           dispatch({
             type: GET_INGREDIENTS_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: GET_INGREDIENTS_FAILED,
         });
+        console.log(err);
       });
   };
 }
@@ -68,12 +70,14 @@ export const getOrder = (ingredients: string[]) => {
           dispatch({
             type: GET_ORDER_FAILED,
           });
+          return Promise.reject(`Ошибка: ${res.message}`);
         }
       })
       .catch((err) => {
         dispatch({
           type: GET_ORDER_FAILED,
         });
+        console.log(err);
       });
   };
 };

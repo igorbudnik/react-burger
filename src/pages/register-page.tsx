@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import loginStyles from "./login.module.css";
-import AppHeader from "../components/AppHeader/app-header";
 import {
   Button,
   Input,
@@ -43,64 +42,65 @@ const RegisterPage = (props: registerProps) => {
     }
   }, [registerRequest]);
 
-  const onClick = () => {
+  const onClick = (event: SyntheticEvent) => {
+    event.preventDefault();
     dispatch(registerUser(loginValue, emailValue, passwordValue));
   };
 
   return (
     <>
-      <AppHeader />
       <div className={loginStyles.main}>
         <h1>Регистрация</h1>
-        <Input
-          type={"text"}
-          placeholder={loginValue ? "" : "Имя"}
-          onChange={onLoginChange}
-          value={loginValue}
-          name={"name"}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        <Input
-          type={"text"}
-          placeholder={emailValue ? "" : "E-mail"}
-          onChange={onEmailChange}
-          value={emailValue}
-          name={"name"}
-          error={false}
-          // ref={""}
+        <form className={loginStyles.form} onSubmit={onClick}>
+          <Input
+            type={"text"}
+            placeholder={loginValue ? "" : "Имя"}
+            onChange={onLoginChange}
+            value={loginValue}
+            name={"name"}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+          <Input
+            type={"text"}
+            placeholder={emailValue ? "" : "E-mail"}
+            onChange={onEmailChange}
+            value={emailValue}
+            name={"name"}
+            error={false}
+            // ref={""}
 
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        <Input
-          type={"text"}
-          placeholder={passwordValue ? "" : "Пароль"}
-          onChange={onPasswordChange}
-          icon={showed ? "HideIcon" : "ShowIcon"}
-          value={passwordValue}
-          name={"name"}
-          error={false}
-          // ref={""}
-          onIconClick={onIconClick}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        {/* <Link to="/"> */}
-        <Button onClick={onClick} htmlType="button" type="primary" size="large">
-          Зарегистрироваться
-        </Button>
-        {/* </Link> */}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+          <Input
+            type={"text"}
+            placeholder={passwordValue ? "" : "Пароль"}
+            onChange={onPasswordChange}
+            icon={showed ? "HideIcon" : "ShowIcon"}
+            value={passwordValue}
+            name={"name"}
+            error={false}
+            // ref={""}
+            onIconClick={onIconClick}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+
+          <Button htmlType="submit" type="primary" size="large">
+            Зарегистрироваться
+          </Button>
+        </form>
       </div>
       <section className={loginStyles.section}>
         <span className={loginStyles.span}>

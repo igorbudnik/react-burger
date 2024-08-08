@@ -4,7 +4,7 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useAppDispatch } from "../..";
 import { SHOW_INGREDIENT } from "../../services/actions/details";
 import { useDrag } from "react-dnd";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   ingredient: Ingredient;

@@ -2,21 +2,28 @@ import { useState } from "react";
 import mainStyle from "./burger-ingredients.module.css";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderDetails from "../IngredientDetails/ingredient-details";
+import IngredientDetails from "../IngredientDetails/ingredient-details";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "../..";
 import { CLOSE_INGREDIENT } from "../../services/actions/details";
 import CatigoryIngredient from "./category-ingredient";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Ingredient } from "../../pages/main-page";
 
-const BurgerIngredients = () => {
+interface IIngredient {
+  ingredientSaved: Ingredient;
+}
+
+const BurgerIngredients = (props: IIngredient) => {
+  const { ingredientSaved } = props;
   const dispatch = useAppDispatch();
   const { state } = useLocation();
+  console.log(state);
+
   const { ingredient } = useAppSelector(
     (store) => store.chosenIngredientReducer
   );
   const [current, setCurrent] = useState<string>("one");
-  console.log(state);
   const navigate = useNavigate();
   const scroll = (tab: string) => {
     const elem = document.getElementById(tab);
@@ -64,8 +71,8 @@ const BurgerIngredients = () => {
       {localStorage.getItem("modal") === "opened" && (
         <>
           <Modal changeClose={setClosed}>
-            <OrderDetails
-              currentIngredient={state ? state.ingredient : ingredient}
+            <IngredientDetails
+              currentIngredient={ingredient ? ingredient : ingredientSaved}
             />
           </Modal>
         </>

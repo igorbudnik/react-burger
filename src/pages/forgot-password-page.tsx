@@ -3,7 +3,6 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/app-header";
 import loginStyles from "./login.module.css";
 import { newPassword } from "../services/actions/password";
 import { useAppDispatch, useAppSelector } from "..";
@@ -22,7 +21,8 @@ const ForgotPage = (props: loginProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onClick = () => {
+  const onClick = (event: SyntheticEvent) => {
+    event.preventDefault();
     dispatch(newPassword(emailValue));
   };
 
@@ -36,25 +36,27 @@ const ForgotPage = (props: loginProps) => {
 
   return (
     <>
-      <AppHeader />
       <div className={loginStyles.main}>
         <h1>Восстановление пароля</h1>
-        <Input
-          type={"text"}
-          placeholder={emailValue ? "" : "Укажите E-mail"}
-          onChange={onEmailChange}
-          value={emailValue}
-          name={"name"}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        <Button onClick={onClick} htmlType="button" type="primary" size="large">
-          Восстановить
-        </Button>
+        <form className={loginStyles.form} onSubmit={onClick}>
+          <Input
+            type={"text"}
+            placeholder={emailValue ? "" : "Укажите E-mail"}
+            onChange={onEmailChange}
+            value={emailValue}
+            name={"name"}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+
+          <Button htmlType="submit" type="primary" size="large">
+            Восстановить
+          </Button>
+        </form>
       </div>
       <section className={loginStyles.section}>
         <span className={loginStyles.span}>

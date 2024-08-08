@@ -1,6 +1,5 @@
 import { useEffect, useMemo } from "react";
 import AppStyle from "./main.module.css";
-import AppHeader from "../components/AppHeader/app-header";
 import BurgerIngredients from "../components/BurgerIngredients/burger-ingredients";
 import BurgerConstructor from "../components/BurgerConstructor/burger-constructor";
 import { getIngredients } from "../services/actions/ingredients";
@@ -25,7 +24,12 @@ export interface Ingredient {
   uid?: string;
 }
 
-function MainPage() {
+interface IInterface {
+  ingredientSaved: Ingredient;
+}
+
+function MainPage(props: IInterface) {
+  const { ingredientSaved } = props;
   const dispatch = useAppDispatch();
   const { allIngredients, ingredientsFailed, ingredientsRequest } =
     useAppSelector((store) => store.getIngredientsReducer);
@@ -40,7 +44,7 @@ function MainPage() {
         "Ошибка"
       ) : (
         <>
-          <BurgerIngredients />
+          <BurgerIngredients ingredientSaved={ingredientSaved} />
           <BurgerConstructor />
         </>
       )
@@ -51,7 +55,6 @@ function MainPage() {
 
   return (
     <>
-      <AppHeader />
       <DndProvider backend={HTML5Backend}>
         <main className={AppStyle.main}>{content}</main>
       </DndProvider>

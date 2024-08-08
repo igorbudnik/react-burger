@@ -42,7 +42,10 @@ const AppHeader = () => {
             <span className={headerStyle.span}>Лист заказов</span>
           </Button>
         </section>
-        <section className={headerStyle.logo}>
+        <section
+          className={headerStyle.logo}
+          onClick={(e) => changePage(e, "/")}
+        >
           <Logo />
         </section>
         <section>

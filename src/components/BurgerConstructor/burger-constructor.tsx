@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { SyntheticEvent, useMemo } from "react";
 import {
   Button,
   CurrencyIcon,
@@ -11,18 +11,23 @@ import { useAppDispatch, useAppSelector } from "../..";
 import { SHOW_ORDER, CLOSE_ORDER } from "../../services/actions/modal";
 import { getOrder } from "../../services/actions/ingredients";
 import { IngredientsConstructor } from "./burger-element";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
   const { orderOpened } = useAppSelector((store) => store.orderReducer);
-
+  const navigate = useNavigate();
   const { ingredientsConstructor, bun } = useAppSelector(
     (store) => store.getIngredientsReducer
   );
 
-  const setOrder = (ingredients: Ingredient[]) => {
-    console.log(ingredients);
+  const setOrder = (e: SyntheticEvent, ingredients: Ingredient[]) => {
+    e.preventDefault();
+    if (!localStorage.getItem("accessToken")) {
+      navigate("/login");
 
+      return;
+    }
     dispatch(
       getOrder([...ingredients, bun].map((item: Ingredient) => item?._id))
     );
@@ -58,10 +63,11 @@ const BurgerConstructor = () => {
           </>
         )}
         <Button
-          onClick={() => setOrder(ingredientsConstructor)}
+          onClick={(e) => setOrder(e, ingredientsConstructor)}
           htmlType="button"
           type="primary"
           size="large"
+          disabled={bun ? false : true}
         >
           Оформить заказ
         </Button>

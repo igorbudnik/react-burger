@@ -3,7 +3,6 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useNavigate } from "react-router-dom";
-import AppHeader from "../components/AppHeader/app-header";
 import loginStyles from "./login.module.css";
 import { SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "..";
@@ -21,7 +20,6 @@ interface loginProps {
 const LoginPage = (props: loginProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
   const { userRequest } = useAppSelector((store) => store.userReducer);
 
   const {
@@ -33,7 +31,8 @@ const LoginPage = (props: loginProps) => {
     onPasswordChange,
   } = props;
 
-  const signIn = () => {
+  const signIn = (event: SyntheticEvent) => {
+    event.preventDefault();
     dispatch(loginUser(emailValue, passwordValue));
   };
   const token = localStorage.getItem("accessToken");
@@ -46,41 +45,42 @@ const LoginPage = (props: loginProps) => {
 
   return (
     <>
-      <AppHeader />
       <div className={loginStyles.main}>
         <h1>Вход</h1>
-        <Input
-          name={"email"}
-          type={"text"}
-          placeholder={emailValue ? "" : "E-mail"}
-          onChange={onEmailChange}
-          value={emailValue}
-          error={false}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        <Input
-          type={"text"}
-          placeholder={passwordValue ? "" : "Пароль"}
-          onChange={onPasswordChange}
-          icon={showed ? "HideIcon" : "ShowIcon"}
-          value={passwordValue}
-          name={"password"}
-          error={false}
-          // ref={""}
-          onIconClick={onIconClick}
-          errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        <Button onClick={signIn} htmlType="button" type="primary" size="large">
-          Войти
-        </Button>
+        <form className={loginStyles.form} onSubmit={signIn}>
+          <Input
+            name={"email"}
+            type={"text"}
+            placeholder={emailValue ? "" : "E-mail"}
+            onChange={onEmailChange}
+            value={emailValue}
+            error={false}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+          <Input
+            type={"text"}
+            placeholder={passwordValue ? "" : "Пароль"}
+            onChange={onPasswordChange}
+            icon={showed ? "HideIcon" : "ShowIcon"}
+            value={passwordValue}
+            name={"password"}
+            error={false}
+            // ref={""}
+            onIconClick={onIconClick}
+            errorText={"Ошибка"}
+            size={"default"}
+            extraClass="ml-1"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
+          <Button htmlType="submit" type="primary" size="large">
+            Войти
+          </Button>
+        </form>
       </div>
       <section className={loginStyles.section}>
         <span className={loginStyles.span}>
