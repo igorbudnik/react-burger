@@ -1,5 +1,5 @@
 import { AppDispatch } from "../..";
-import { refreshToken } from "../api";
+import { checkReponse, refreshToken } from "../api";
 export const CHANGE_PASSWORD_REQUEST = "CHANGE_PASSWORD_REQUEST";
 export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_PASSWORD_FAILED = "CHANGE_PASSWORD_FAILED";
@@ -22,7 +22,7 @@ export const CHANGE_INFO_REQUEST = "CHANGE_INFO_REQUEST";
 export const CHANGE_INFO_SUCCESS = "CHANGE_INFO_SUCCESS";
 export const CHANGE_INFO_FAILED = "CHANGE_INFO_FAILED";
 
-const BASE_URL = "https://norma.nomoreparties.space/api/";
+export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 export const newPassword = (email: string) => {
   return function (dispatch: AppDispatch) {
@@ -38,7 +38,7 @@ export const newPassword = (email: string) => {
         email: email, //исправить потом useState
       }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -76,7 +76,8 @@ export const registerUser = (name: string, email: string, password: string) => {
         name: name,
       }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -116,7 +117,8 @@ export const resetPassword = (password: string, token: string) => {
         token: token,
       }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -150,7 +152,8 @@ export const getUser = () => {
         Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -210,7 +213,8 @@ export const loginUser = (userEmail: string, userPassword: string) => {
 
       body: JSON.stringify({ email: userEmail, password: userPassword }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -250,7 +254,8 @@ export const logoutUser = () => {
 
       body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -286,7 +291,8 @@ export const changeInfo = (name: string, email: string, password: string) => {
 
       body: JSON.stringify({ name: name, email: email, password: password }),
     })
-      .then((request) => request.json())
+      .then(checkReponse)
+
       .then((res) => {
         if (res && res.success) {
           dispatch({

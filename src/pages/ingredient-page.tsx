@@ -1,6 +1,5 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getIngredients } from "../services/actions/ingredients";
 import { useAppDispatch, useAppSelector } from "..";
 import { COMPARE_INGREDIENTS } from "../services/actions/ingredients";
 import modalStyle from "../components/Modal/modal.module.css";
@@ -15,14 +14,9 @@ const IngredientPage = () => {
     (store) => store.getIngredientsReducer
   );
 
-  const loadIngredientsInfo = useCallback(() => {
-    dispatch(getIngredients());
-  }, [id]);
-
   useEffect(() => {
-    loadIngredientsInfo();
     dispatch({ type: COMPARE_INGREDIENTS, modalIngredientId: id });
-  }, [id, loadIngredientsInfo, ingredientsRequest]);
+  }, [id, ingredientsRequest]);
   return (
     <>
       {ingredientsRequest ? (

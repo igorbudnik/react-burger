@@ -1,9 +1,13 @@
-const checkReponse = (res) => {
+import { BASE_URL } from "./actions/password";
+
+export const checkReponse = (res) => {
+  console.log(res.ok);
+
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export const refreshToken = async () => {
-  const res = await fetch(`https://norma.nomoreparties.space/api/auth/token`, {
+  const res = await fetch(`${BASE_URL}token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

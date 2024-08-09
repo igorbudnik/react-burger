@@ -1,12 +1,11 @@
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import AppStyle from "./main.module.css";
 import BurgerIngredients from "../components/BurgerIngredients/burger-ingredients";
 import BurgerConstructor from "../components/BurgerConstructor/burger-constructor";
-import { getIngredients } from "../services/actions/ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { useAppDispatch, useAppSelector } from "..";
+import { useAppSelector } from "..";
 
 export interface Ingredient {
   _id: string;
@@ -30,13 +29,8 @@ interface IInterface {
 
 function MainPage(props: IInterface) {
   const { ingredientSaved } = props;
-  const dispatch = useAppDispatch();
   const { allIngredients, ingredientsFailed, ingredientsRequest } =
     useAppSelector((store) => store.getIngredientsReducer);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   const content = useMemo(() => {
     return ingredientsRequest ? (

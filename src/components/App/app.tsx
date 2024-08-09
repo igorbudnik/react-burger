@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 import MainPage from "../../pages/main-page";
 import ErrorPage from "../../pages/error-page";
@@ -16,10 +15,8 @@ import IngredientPage from "../../pages/ingredient-page";
 import HOCelement from "../../pages/hoc-log-reg";
 import { ProtectedRouteElement } from "../../services/protected-route";
 import AppHeader from "../AppHeader/app-header";
-import { CLOSE_INGREDIENT } from "../../services/actions/details";
 import { useAppDispatch } from "../..";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { getIngredients } from "../../services/actions/ingredients";
 
 const LoginPageHOC = HOCelement(LoginPage);
 const RegisterPageHOC = HOCelement(RegisterPage);
@@ -31,7 +28,8 @@ export function App() {
   const location = useLocation();
   const background = location.state;
 
-  console.log(background?.ingredient);
+  const dispatch = useAppDispatch();
+  dispatch(getIngredients());
 
   return (
     <>
@@ -47,19 +45,16 @@ export function App() {
         {!background && (
           <Route path="/ingredients/:id" element={<IngredientPage />} />
         )}
-        <Route
-          path="/ingredients/:id"
-          element={
-            <DndProvider backend={HTML5Backend}>
-              <MainPage ingredientSaved={background?.ingredient} />
-            </DndProvider>
-          }
-        />
         <Route path="/login" element={<LoginPageHOC />} />
         <Route path="/register" element={<RegisterPageHOC />} />
         <Route path="/forgot-password" element={<ForgotPageHOC />} />
         <Route path="/reset-password" element={<ResetPageHOC />} />
         <Route path="*" element={<ErrorPage />} />
+      </Routes>
+      <Routes>
+        {background && (
+          <Route path="/ingredients/:id" element={<IngredientPage />} />
+        )}
       </Routes>
     </>
   );

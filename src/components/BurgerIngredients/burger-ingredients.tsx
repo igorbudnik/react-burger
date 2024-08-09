@@ -1,4 +1,3 @@
-import { useState } from "react";
 import mainStyle from "./burger-ingredients.module.css";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,9 +5,10 @@ import IngredientDetails from "../IngredientDetails/ingredient-details";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "../..";
 import { CLOSE_INGREDIENT } from "../../services/actions/details";
-import CatigoryIngredient from "./category-ingredient";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import CategoryIngredient from "./category-ingredient";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Ingredient } from "../../pages/main-page";
+import { useInView } from "react-intersection-observer";
 
 interface IIngredient {
   ingredientSaved: Ingredient;
@@ -17,13 +17,20 @@ interface IIngredient {
 const BurgerIngredients = (props: IIngredient) => {
   const { ingredientSaved } = props;
   const dispatch = useAppDispatch();
-  const { state } = useLocation();
-  console.log(state);
+
+  const [refBun, inViewBun] = useInView({
+    threshold: 1,
+  });
+  const [refSauce, inViewSauce] = useInView({
+    threshold: 1,
+  });
+  const [refMain, inViewMain] = useInView({
+    threshold: 0.15,
+  });
 
   const { ingredient } = useAppSelector(
     (store) => store.chosenIngredientReducer
   );
-  const [current, setCurrent] = useState<string>("one");
   const navigate = useNavigate();
   const scroll = (tab: string) => {
     const elem = document.getElementById(tab);
@@ -45,27 +52,25 @@ const BurgerIngredients = (props: IIngredient) => {
     <section className={mainStyle.section}>
       <p className="text text_type_main-large mt-10">Соберите бургер</p>
       <div className={mainStyle.tab}>
-        <Tab
-          value="one"
-          active={current === "one"}
-          onClick={() => (setCurrent("one"), scroll("one"))}
-        >
-          Булки
-        </Tab>
-        <Tab
-          value="two"
-          active={current === "two"}
-          onClick={() => (setCurrent("two"), scroll("two"))}
-        >
-          Соусы
-        </Tab>
-        <Tab
-          value="three"
-          active={current === "three"}
-          onClick={() => (setCurrent("three"), scroll("three"))}
-        >
-          Начинки
-        </Tab>
+        <div>
+          <Tab value="one" active={inViewBun} onClick={() => scroll("one")}>
+            Булки
+          </Tab>
+        </div>
+        <div>
+          <Tab value="two" active={inViewSauce} onClick={() => scroll("two")}>
+            Соусы
+          </Tab>
+        </div>
+        <div>
+          <Tab
+            value="three"
+            active={inViewMain}
+            onClick={() => scroll("three")}
+          >
+            Начинки
+          </Tab>
+        </div>
       </div>
 
       {localStorage.getItem("modal") === "opened" && (
@@ -81,20 +86,20 @@ const BurgerIngredients = (props: IIngredient) => {
         <p id="one" className="text text_type_main-medium mb-6">
           Булки
         </p>
-        <div className={mainStyle.div_main}>
-          <CatigoryIngredient category={"bun"} />
+        <div className={mainStyle.div_main} ref={refBun}>
+          <CategoryIngredient category={"bun"} />
         </div>
         <p id="two" className="text text_type_main-medium mt-10 mb-6">
           Соусы
         </p>
-        <div className={mainStyle.div_main}>
-          <CatigoryIngredient category={"sauce"} />
+        <div className={mainStyle.div_main} ref={refSauce}>
+          <CategoryIngredient category={"sauce"} />
         </div>
         <p id="three" className="text text_type_main-medium mt-10 mb-6">
           Начинка
         </p>
-        <div className={mainStyle.div_main}>
-          <CatigoryIngredient category={"main"} />
+        <div className={mainStyle.div_main} ref={refMain}>
+          <CategoryIngredient category={"main"} />
         </div>
       </div>
     </section>
