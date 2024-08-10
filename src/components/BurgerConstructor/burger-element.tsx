@@ -3,7 +3,7 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../App/app";
+import { Ingredient } from "../../pages/main-page";
 import mainStyle from "./burger-constructor.module.css";
 
 import { useAppDispatch, useAppSelector } from "../..";

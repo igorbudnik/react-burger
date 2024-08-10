@@ -1,12 +1,11 @@
 import modalStyle from "../Modal/modal.module.css";
-import { Ingredient } from "../App/app";
-import { ReactNode } from "react";
+import { Ingredient } from "../../pages/main-page";
 
 export interface AppProps {
   currentIngredient: Ingredient;
 }
 
-const OrderDetails = (props: AppProps) => {
+const IngredientDetails = (props: AppProps) => {
   const { currentIngredient } = props;
   return (
     <>
@@ -59,4 +58,4 @@ const OrderDetails = (props: AppProps) => {
   );
 };
 
-export default OrderDetails;
+export default IngredientDetails;

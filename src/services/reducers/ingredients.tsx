@@ -9,21 +9,24 @@ import {
   GET_ORDER_FAILED,
   GET_ORDER_SUCCESS,
   CHANGE_INGREDIENTS_PLACE,
+  COMPARE_INGREDIENTS,
 } from "../actions/ingredients";
-import { Ingredient } from "../../components/App/app";
+import { Ingredient } from "../../pages/main-page";
 
 type ActionType = {
   type: string;
   ingredients: Ingredient[];
   payload: Ingredient;
   orderNumber: string;
+  modalIngredientId: string;
 };
 
 interface Initial {
   allIngredients: Ingredient[];
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
-
+  modalIngredient: Ingredient[];
+  modalRequest: boolean;
   ingredientsConstructor: Ingredient[];
   bun: any;
 
@@ -34,6 +37,8 @@ interface Initial {
 
 const initialState: Initial = {
   allIngredients: [],
+  modalIngredient: [],
+  modalRequest: false,
   ingredientsRequest: false,
   ingredientsFailed: false,
   ingredientsConstructor: [],
@@ -48,6 +53,15 @@ export const getIngredientsReducer = (
   action: ActionType
 ) => {
   switch (action.type) {
+    case COMPARE_INGREDIENTS: {
+      return {
+        ...state,
+        modalIngredient: state.allIngredients.filter(
+          (ingredient: Ingredient) =>
+            ingredient._id === action.modalIngredientId
+        ),
+      };
+    }
     case GET_INGREDIENTS_REQUEST: {
       return {
         ...state,
@@ -102,8 +116,6 @@ export const getIngredientsReducer = (
           bun: action.payload,
           allIngredients: [...state.allIngredients].map((ingredient) => {
             if (ingredient.__v === 2 && ingredient.type === "bun") {
-              console.log(123);
-
               return { ...ingredient, __v: ingredient.__v - 2 };
             }
             return ingredient;

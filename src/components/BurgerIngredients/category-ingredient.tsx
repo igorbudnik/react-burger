@@ -6,7 +6,7 @@ type CategoryType = {
   category: string;
 };
 
-const CatigoryIngredient = (props: CategoryType) => {
+const CategoryIngredient = (props: CategoryType) => {
   const { category } = props;
   const { allIngredients } = useAppSelector(
     (store) => store.getIngredientsReducer
@@ -24,4 +24,4 @@ const CatigoryIngredient = (props: CategoryType) => {
   );
 };
 
-export default CatigoryIngredient;
+export default CategoryIngredient;
