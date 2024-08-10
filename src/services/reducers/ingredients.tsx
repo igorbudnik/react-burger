@@ -1,3 +1,4 @@
+import { Ingredient } from "../../components/Types/types";
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
@@ -11,7 +12,6 @@ import {
   CHANGE_INGREDIENTS_PLACE,
   COMPARE_INGREDIENTS,
 } from "../actions/ingredients";
-import { Ingredient } from "../../pages/main-page";
 
 type ActionType = {
   type: string;

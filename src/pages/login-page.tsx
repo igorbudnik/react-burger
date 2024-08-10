@@ -7,17 +7,9 @@ import loginStyles from "./login.module.css";
 import { SyntheticEvent, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "..";
 import { loginUser } from "../services/actions/password";
+import { loginPageProps } from "../components/Types/types";
 
-interface loginProps {
-  showed: boolean;
-  onIconClick: () => void;
-  emailValue: string;
-  onEmailChange: (e: SyntheticEvent) => void;
-  passwordValue: string;
-  onPasswordChange: (e: SyntheticEvent) => void;
-}
-
-const LoginPage = (props: loginProps) => {
+const LoginPage = (props: loginPageProps) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { userRequest } = useAppSelector((store) => store.userReducer);

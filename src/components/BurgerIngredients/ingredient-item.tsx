@@ -1,19 +1,10 @@
 import mainStyle from "./burger-ingredients.module.css";
-import { Ingredient } from "../../pages/main-page";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useAppDispatch } from "../..";
 import { SHOW_INGREDIENT } from "../../services/actions/details";
 import { useDrag } from "react-dnd";
 import { useNavigate } from "react-router-dom";
-
-type PropsType = {
-  ingredient: Ingredient;
-  key: number;
-};
-
-type CounterProps = {
-  count: number;
-};
+import { CounterProps, Ingredient, PropsType } from "../Types/types";
 
 const Counter = (props: CounterProps) => {
   return (

@@ -1,5 +1,5 @@
+import { Ingredient } from "../../components/Types/types";
 import { SHOW_INGREDIENT, CLOSE_INGREDIENT } from "../actions/details";
-import { Ingredient } from "../../pages/main-page";
 
 interface Initial {
   ingredient: Ingredient | any;

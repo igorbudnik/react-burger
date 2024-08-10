@@ -7,18 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from "..";
 import { registerUser } from "../services/actions/password";
 import { SyntheticEvent, useEffect } from "react";
-
-interface registerProps {
-  showed: boolean;
-  onIconClick: () => void;
-  loginValue: string;
-  onLoginChange: (e: SyntheticEvent) => void;
-  emailValue: string;
-  onEmailChange: (e: SyntheticEvent) => void;
-  passwordValue: string;
-  onPasswordChange: (e: SyntheticEvent) => void;
-  registerRequest: boolean;
-}
+import { registerProps } from "../components/Types/types";
 
 const RegisterPage = (props: registerProps) => {
   const dispatch = useAppDispatch();

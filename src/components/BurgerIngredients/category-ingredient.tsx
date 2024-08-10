@@ -1,10 +1,7 @@
 import { useAppSelector } from "../..";
+import { CategoryType } from "../Types/types";
 
 import IngredientsNeed from "./ingredient-item";
-
-type CategoryType = {
-  category: string;
-};
 
 const CategoryIngredient = (props: CategoryType) => {
   const { category } = props;

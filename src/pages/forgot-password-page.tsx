@@ -7,11 +7,7 @@ import loginStyles from "./login.module.css";
 import { newPassword } from "../services/actions/password";
 import { useAppDispatch, useAppSelector } from "..";
 import { SyntheticEvent, useEffect } from "react";
-
-interface loginProps {
-  emailValue: string;
-  onEmailChange: (e: SyntheticEvent) => void;
-}
+import { loginProps } from "../components/Types/types";
 
 const ForgotPage = (props: loginProps) => {
   const { emailValue, onEmailChange } = props;

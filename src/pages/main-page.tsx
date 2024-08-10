@@ -6,28 +6,9 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 import { useAppSelector } from "..";
+import { IIngredient } from "../components/Types/types";
 
-export interface Ingredient {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-  uid?: string;
-}
-
-interface IInterface {
-  ingredientSaved: Ingredient;
-}
-
-function MainPage(props: IInterface) {
+function MainPage(props: IIngredient) {
   const { ingredientSaved } = props;
   const { allIngredients, ingredientsFailed, ingredientsRequest } =
     useAppSelector((store) => store.getIngredientsReducer);
