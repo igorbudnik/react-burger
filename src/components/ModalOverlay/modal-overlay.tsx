@@ -1,9 +1,5 @@
+import { PropsOverlay } from "../Types/types";
 import modalStyle from "./modal-overlay.module.css";
-
-// const overlay = document.getElementById("overlay")
-interface PropsOverlay {
-  changeOpen: (opened: boolean) => void;
-}
 
 const ModalOverlay = (props: PropsOverlay) => {
   const { changeOpen } = props;

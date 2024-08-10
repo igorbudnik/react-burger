@@ -3,7 +3,6 @@ import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../../pages/main-page";
 import mainStyle from "./burger-constructor.module.css";
 import OrderDetails from "../OrderDetails/order-details";
 import Modal from "../Modal/modal";
@@ -12,6 +11,7 @@ import { SHOW_ORDER, CLOSE_ORDER } from "../../services/actions/modal";
 import { getOrder } from "../../services/actions/ingredients";
 import { IngredientsConstructor } from "./burger-element";
 import { useNavigate } from "react-router-dom";
+import { Ingredient } from "../Types/types";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();

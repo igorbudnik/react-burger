@@ -3,7 +3,6 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Ingredient } from "../../pages/main-page";
 import mainStyle from "./burger-constructor.module.css";
 
 import { useAppDispatch, useAppSelector } from "../..";
@@ -15,6 +14,7 @@ import {
 import { v4 as uuidv4 } from "uuid";
 import { useDrag, useDrop } from "react-dnd";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Ingredient } from "../Types/types";
 
 export const IngredientsConstructor = () => {
   const dispatch = useAppDispatch();

@@ -7,17 +7,9 @@ import loginStyles from "./login.module.css";
 import { useAppDispatch, useAppSelector } from "..";
 import { resetPassword } from "../services/actions/password";
 import { SyntheticEvent, useEffect } from "react";
+import { resetProps } from "../components/Types/types";
 
-interface loginProps {
-  showed: boolean;
-  onIconClick: () => void;
-  codeValue: string;
-  onCodeChange: (e: SyntheticEvent) => void;
-  passwordValue: string;
-  onPasswordChange: (e: SyntheticEvent) => void;
-}
-
-const ResetPage = (props: loginProps) => {
+const ResetPage = (props: resetProps) => {
   const {
     showed,
     onIconClick,

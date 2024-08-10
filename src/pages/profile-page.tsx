@@ -5,27 +5,10 @@ import {
 import { useNavigate, NavLink } from "react-router-dom";
 import loginStyles from "./login.module.css";
 import { useAppDispatch, useAppSelector } from "..";
-import {
-  ChangeEvent,
-  SyntheticEvent,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
 import { changeInfo, logoutUser } from "../services/actions/password";
 
-interface profileProps {
-  edited: boolean[];
-  onEditClick: (index: SyntheticEvent) => void;
-  loginValue: string;
-  onLoginChange: (e: SyntheticEvent) => void;
-  emailValue: string;
-  onEmailChange: (e: SyntheticEvent) => void;
-  passwordValue: string;
-  onPasswordChange: (e: SyntheticEvent) => void;
-}
-
-const ProfilePage = (props: profileProps) => {
+const ProfilePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const links = [
@@ -45,8 +28,6 @@ const ProfilePage = (props: profileProps) => {
       dispatch(logoutUser());
     }
   };
-
-  const { edited, loginValue, emailValue, passwordValue } = props;
 
   interface User {
     field: string;

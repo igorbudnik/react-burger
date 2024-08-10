@@ -1,9 +1,5 @@
 import modalStyle from "../Modal/modal.module.css";
-import { Ingredient } from "../../pages/main-page";
-
-export interface AppProps {
-  currentIngredient: Ingredient;
-}
+import { AppProps } from "../Types/types";
 
 const IngredientDetails = (props: AppProps) => {
   const { currentIngredient } = props;

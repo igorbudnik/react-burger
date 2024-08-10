@@ -6,13 +6,9 @@ import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "../..";
 import { CLOSE_INGREDIENT } from "../../services/actions/details";
 import CategoryIngredient from "./category-ingredient";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Ingredient } from "../../pages/main-page";
+import { useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
-
-interface IIngredient {
-  ingredientSaved: Ingredient;
-}
+import { IIngredient } from "../Types/types";
 
 const BurgerIngredients = (props: IIngredient) => {
   const { ingredientSaved } = props;
