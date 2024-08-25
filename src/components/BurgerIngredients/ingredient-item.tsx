@@ -3,10 +3,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { useAppDispatch } from "../..";
 import { SHOW_INGREDIENT } from "../../services/actions/details";
 import { useDrag } from "react-dnd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CounterProps, Ingredient, PropsType } from "../Types/types";
 
-const Counter = (props: CounterProps) => {
+export const Counter = (props: CounterProps) => {
   return (
     <div className={mainStyle.counter}>
       <p className="text text_type_main-default">
@@ -32,6 +32,7 @@ const Counter = (props: CounterProps) => {
 const IngredientsNeed = (props: PropsType) => {
   const { ingredient } = props;
   const navigate = useNavigate();
+  const location = useLocation();
   const [, dragRef] = useDrag(
     {
       type: ingredient.type,
@@ -45,7 +46,7 @@ const IngredientsNeed = (props: PropsType) => {
     dispatch({ type: SHOW_INGREDIENT, ingredient });
     localStorage.setItem("modal", "opened");
     navigate(`/ingredients/${ingredient._id}`, {
-      state: { ingredient: ingredient },
+      state: { background: location, ingredient: ingredient },
     });
   };
 

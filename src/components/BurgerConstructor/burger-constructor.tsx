@@ -12,6 +12,7 @@ import { getOrder } from "../../services/actions/ingredients";
 import { IngredientsConstructor } from "./burger-element";
 import { useNavigate } from "react-router-dom";
 import { Ingredient } from "../Types/types";
+import { WS_SEND_MESSAGE } from "../../services/actions/socket";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
@@ -41,10 +42,6 @@ const BurgerConstructor = () => {
     );
   }, [ingredientsConstructor, bun]);
 
-  const setClosed = () => {
-    dispatch({ type: CLOSE_ORDER });
-  };
-
   return (
     <section className={mainStyle.section}>
       <div>
@@ -57,7 +54,7 @@ const BurgerConstructor = () => {
         </div>
         {orderOpened && (
           <>
-            <Modal changeClose={setClosed}>
+            <Modal url="/">
               <OrderDetails />
             </Modal>
           </>

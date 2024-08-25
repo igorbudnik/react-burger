@@ -33,6 +33,7 @@ const AppHeader = () => {
           </Button>
 
           <Button
+            onClick={(e) => changePage(e, "/feed")}
             extraClass={headerStyle.button}
             htmlType="button"
             type="secondary"

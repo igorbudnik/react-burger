@@ -24,8 +24,6 @@ const ForgotPage = (props: loginProps) => {
 
   useEffect(() => {
     if (passwordRequest) {
-      console.log(emailValue);
-
       navigate("/reset-password");
     }
   }, [passwordRequest, passwordFailed]);
