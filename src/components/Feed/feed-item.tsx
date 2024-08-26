@@ -65,12 +65,12 @@ const FeedItem = (props: IFeed) => {
                       src={
                         allIngredients.filter(
                           (ingredient) => ingredient._id === x
-                        )[0].image
+                        )[0]?.image
                       }
                       alt={
                         allIngredients.filter(
                           (ingredient) => ingredient._id === x
-                        )[0].name
+                        )[0]?.name
                       }
                     />
                     <div className={itemStyle.count}>

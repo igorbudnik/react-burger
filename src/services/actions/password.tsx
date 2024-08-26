@@ -181,6 +181,10 @@ export const getUser = () => {
         }
       })
       .catch((err) => {
+        dispatch({
+          type: GET_USER_FAILED,
+        });
+        console.log(err);
         if (err.message === "jwt expired") {
           refreshToken();
           fetch(`${BASE_URL}auth/user`, {
@@ -190,11 +194,10 @@ export const getUser = () => {
               Authorization: "Bearer " + localStorage.getItem("accessToken"),
             },
           });
+          dispatch({
+            type: GET_USER_SUCCESS,
+          });
         }
-        dispatch({
-          type: GET_USER_FAILED,
-        });
-        console.log(err);
       });
   };
 };

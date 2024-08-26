@@ -7,6 +7,10 @@ import type {
   IMessage,
 } from "../components/Types/types";
 import { refreshToken } from "../services/api";
+import {
+  GET_USER_FAILED,
+  GET_USER_SUCCESS,
+} from "../services/actions/password";
 
 export const wsUrl = "wss://norma.nomoreparties.space/orders";
 
@@ -23,7 +27,7 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
       const token = localStorage.getItem("accessToken");
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}?token=${token}`);
+        socket = new WebSocket(action.url);
       }
       if (socket) {
         socket.onopen = (event) => {
@@ -39,7 +43,7 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
           const parsedData: IMessage = JSON.parse(data);
           const { success, ...restParsedData } = parsedData;
 
-          if (parsedData.message === "Invalid or missing token") {
+          if (parsedData.message === "jwt expired") {
             refreshToken().then((refreshData) => {
               const wssUrl = new URL(wsUrl);
               wssUrl.searchParams.set(

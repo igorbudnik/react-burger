@@ -1,17 +1,11 @@
 import { ReactNode, SyntheticEvent } from "react";
 import {
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_CLOSED_ALL,
   WS_CONNECTION_ERROR,
-  WS_CONNECTION_ERROR_ALL,
   WS_CONNECTION_START,
-  WS_CONNECTION_START_ALL,
   WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_SUCCESS_ALL,
   WS_GET_MESSAGE,
-  WS_GET_MESSAGE_ALL,
   WS_SEND_MESSAGE,
-  WS_SEND_MESSAGE_ALL,
 } from "../../services/actions/socket";
 
 export type CategoryType = {
@@ -120,6 +114,7 @@ export interface IMessage {
 
 export interface IWSConnectionStart {
   readonly type: typeof WS_CONNECTION_START;
+  url: string;
 }
 
 export interface IWSConnectionSuccessAction {
@@ -160,50 +155,6 @@ export type TWSStoreActions = {
   onClose: typeof WS_CONNECTION_CLOSED;
   onError: typeof WS_CONNECTION_ERROR;
   onMessage: typeof WS_GET_MESSAGE;
-};
-
-export interface IWSConnectionStartAll {
-  readonly type: typeof WS_CONNECTION_START_ALL;
-}
-
-export interface IWSConnectionSuccessActionAll {
-  readonly type: typeof WS_CONNECTION_SUCCESS_ALL;
-}
-
-export interface IWSConnectionErrorActionAll {
-  readonly type: typeof WS_CONNECTION_ERROR_ALL;
-  readonly payload: Event;
-}
-
-export interface IWSConnectionClosedActionAll {
-  readonly type: typeof WS_CONNECTION_CLOSED_ALL;
-}
-
-export interface IWSGetMessageActionAll {
-  readonly type: typeof WS_GET_MESSAGE_ALL;
-  readonly payload: IMessage;
-}
-
-export interface IWSSendMessageActionAll {
-  readonly type: typeof WS_SEND_MESSAGE_ALL;
-  readonly payload: { message: string };
-}
-
-export type TWSActionsAll =
-  | IWSConnectionStartAll
-  | IWSConnectionSuccessActionAll
-  | IWSConnectionErrorActionAll
-  | IWSConnectionClosedActionAll
-  | IWSGetMessageActionAll
-  | IWSSendMessageActionAll;
-
-export type TWSStoreActionsAll = {
-  wsInitAll: typeof WS_CONNECTION_START_ALL;
-  wsSendMessageAll: typeof WS_SEND_MESSAGE_ALL;
-  onOpenAll: typeof WS_CONNECTION_SUCCESS_ALL;
-  onCloseAll: typeof WS_CONNECTION_CLOSED_ALL;
-  onErrorAll: typeof WS_CONNECTION_ERROR_ALL;
-  onMessageAll: typeof WS_GET_MESSAGE_ALL;
 };
 
 export interface IFeed {
