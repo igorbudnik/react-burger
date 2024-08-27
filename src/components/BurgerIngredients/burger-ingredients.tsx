@@ -1,19 +1,10 @@
 import mainStyle from "./burger-ingredients.module.css";
-
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientDetails from "../IngredientDetails/ingredient-details";
-import Modal from "../Modal/modal";
-import { useAppDispatch, useAppSelector } from "../..";
-import { CLOSE_INGREDIENT } from "../../services/actions/details";
 import CategoryIngredient from "./category-ingredient";
-import { useNavigate } from "react-router-dom";
 import { useInView } from "react-intersection-observer";
 import { IIngredient } from "../Types/types";
 
 const BurgerIngredients = (props: IIngredient) => {
-  const { ingredientSaved } = props;
-  const dispatch = useAppDispatch();
-
   const [refBun, inViewBun] = useInView({
     threshold: 1,
   });
@@ -24,10 +15,6 @@ const BurgerIngredients = (props: IIngredient) => {
     threshold: 0.15,
   });
 
-  const { ingredient } = useAppSelector(
-    (store) => store.chosenIngredientReducer
-  );
-  const navigate = useNavigate();
   const scroll = (tab: string) => {
     const elem = document.getElementById(tab);
     if (elem) {
@@ -36,12 +23,6 @@ const BurgerIngredients = (props: IIngredient) => {
         block: "start",
       });
     }
-  };
-
-  const setClosed = () => {
-    dispatch({ type: CLOSE_INGREDIENT });
-    navigate("/");
-    localStorage.setItem("modal", "");
   };
 
   return (
@@ -69,15 +50,6 @@ const BurgerIngredients = (props: IIngredient) => {
         </div>
       </div>
 
-      {localStorage.getItem("modal") === "opened" && (
-        <>
-          <Modal changeClose={setClosed}>
-            <IngredientDetails
-              currentIngredient={ingredient ? ingredient : ingredientSaved}
-            />
-          </Modal>
-        </>
-      )}
       <div className={mainStyle.scroll}>
         <p id="one" className="text text_type_main-medium mb-6">
           Булки

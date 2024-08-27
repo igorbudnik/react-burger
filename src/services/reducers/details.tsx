@@ -1,19 +1,27 @@
-import { Ingredient } from "../../components/Types/types";
+import { Ingredient, IOrder } from "../../components/Types/types";
 import { SHOW_INGREDIENT, CLOSE_INGREDIENT } from "../actions/details";
 
 interface Initial {
-  ingredient: Ingredient | any;
+  ingredient: Ingredient | IOrder;
   ingredientOpened: boolean;
 }
 
 const initialState: Initial = {
-  ingredient: "",
+  ingredient: {
+    ingredients: [],
+    _id: "",
+    name: "",
+    status: "",
+    number: 0,
+    createdAt: "",
+    updatedAt: "",
+  },
   ingredientOpened: false,
 };
 
 export const chosenIngredientReducer = (
   state = initialState,
-  action: { type: string; ingredient: Ingredient[] }
+  action: { type: string; ingredient: Ingredient[] | IOrder }
 ) => {
   switch (action.type) {
     case SHOW_INGREDIENT: {

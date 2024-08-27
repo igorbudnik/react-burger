@@ -183,12 +183,14 @@ export const userReducer = (state = initialState, action: IUserInterface) => {
         email: action.email,
         name: action.name,
         getRequest: true,
+        getFailed: false,
       };
     }
     case GET_USER_FAILED: {
       return {
         ...state,
-        getFailed: true,
+        getFailed: false,
+        getRequest: false,
       };
     }
     case LOGOUT_REQUEST: {

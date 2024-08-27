@@ -1,13 +1,11 @@
 import { BASE_URL } from "./actions/password";
 
-export const checkReponse = (res) => {
-  console.log(res.ok);
-
+export const checkReponse = (res: Response) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 export const refreshToken = async () => {
-  const res = await fetch(`${BASE_URL}token`, {
+  const res = await fetch(`${BASE_URL}auth/token`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json;charset=utf-8",

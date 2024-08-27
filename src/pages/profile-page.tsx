@@ -2,7 +2,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useNavigate, NavLink } from "react-router-dom";
+import { useNavigate, NavLink, Outlet } from "react-router-dom";
 import loginStyles from "./login.module.css";
 import { useAppDispatch, useAppSelector } from "..";
 import { ChangeEvent, SyntheticEvent, useEffect, useState } from "react";
@@ -13,9 +13,11 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const links = [
     { name: "Профиль", link: "/profile" },
-    { name: "История заказов", link: "/history" },
+    { name: "История заказов", link: "/profile/orders" },
     { name: "Выход", link: "/login" },
   ];
+
+  const [outlet, setOutlet] = useState(false);
 
   const { passwordFailed, passwordRequest } = useAppSelector(
     (store) => store.userReducer
@@ -27,6 +29,7 @@ const ProfilePage = () => {
 
       dispatch(logoutUser());
     }
+    name === "История заказов" ? setOutlet(true) : setOutlet(false);
   };
 
   interface User {
@@ -114,12 +117,15 @@ const ProfilePage = () => {
                   <div className={loginStyles.container}>
                     <NavLink
                       onClick={() => onClick(item.name)}
-                      className={loginStyles.navlink}
-                      style={({ isActive }) => ({
-                        color: isActive ? "white" : "gray",
-                      })}
+                      // className={loginStyles.navlink}
+                      className={({ isActive }) =>
+                        isActive
+                          ? `${loginStyles.navlinkActive}`
+                          : `${loginStyles.navlink}`
+                      }
                       key={index}
                       to={item.link}
+                      end
                     >
                       {item.name}
                     </NavLink>
@@ -132,44 +138,48 @@ const ProfilePage = () => {
               изменить свои персональные данные
             </span>
           </section>
-          <section className={loginStyles.section}>
-            <form className={loginStyles.form} onSubmit={onChangeInfo}>
-              {info.map((input, index) => {
-                return (
-                  <Input
-                    key={index}
-                    type={"text"}
-                    placeholder={input.value ? "" : input.field}
-                    onChange={(e) => newInfo(e, index)}
-                    value={input.value}
-                    name={input.name}
-                    disabled={!input.active}
-                    icon={input.active ? "CheckMarkIcon" : "EditIcon"}
-                    onIconClick={() => onEditClick(index)}
-                    error={false}
-                    errorText={"Ошибка"}
-                    size={"default"}
-                    extraClass="ml-1"
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  />
-                );
-              })}
-              <div className={loginStyles.confirm_button}>
-                <Button
-                  onClick={cancelInfo}
-                  htmlType="button"
-                  type="secondary"
-                  size="large"
-                >
-                  Отменить
-                </Button>
-                <Button htmlType="submit" type="primary" size="large">
-                  Сохранить
-                </Button>
-              </div>
-            </form>
-          </section>
+          {outlet ? (
+            <Outlet />
+          ) : (
+            <section className={loginStyles.section}>
+              <form className={loginStyles.form} onSubmit={onChangeInfo}>
+                {info.map((input, index) => {
+                  return (
+                    <Input
+                      key={index}
+                      type={"text"}
+                      placeholder={input.value ? "" : input.field}
+                      onChange={(e) => newInfo(e, index)}
+                      value={input.value}
+                      name={input.name}
+                      disabled={!input.active}
+                      icon={input.active ? "CheckMarkIcon" : "EditIcon"}
+                      onIconClick={() => onEditClick(index)}
+                      error={false}
+                      errorText={"Ошибка"}
+                      size={"default"}
+                      extraClass="ml-1"
+                      onPointerEnterCapture={undefined}
+                      onPointerLeaveCapture={undefined}
+                    />
+                  );
+                })}
+                <div className={loginStyles.confirm_button}>
+                  <Button
+                    onClick={cancelInfo}
+                    htmlType="button"
+                    type="secondary"
+                    size="large"
+                  >
+                    Отменить
+                  </Button>
+                  <Button htmlType="submit" type="primary" size="large">
+                    Сохранить
+                  </Button>
+                </div>
+              </form>
+            </section>
+          )}
         </div>
       </div>
     </>

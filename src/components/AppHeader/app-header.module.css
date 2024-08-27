@@ -4,6 +4,7 @@
 }
 
 .header {
+  margin: 0;
   height: 88px;
   width: 100%;
   display: flex;

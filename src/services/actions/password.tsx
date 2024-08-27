@@ -153,7 +153,6 @@ export const getUser = () => {
       },
     })
       .then(checkReponse)
-
       .then((res) => {
         if (res && res.success) {
           dispatch({
@@ -176,16 +175,6 @@ export const getUser = () => {
               type: GET_USER_FAILED,
             });
             return Promise.reject(`Ошибка: ${res.message}`);
-          }
-          if (res.message === "jwt expired") {
-            refreshToken();
-            fetch(`${BASE_URL}auth/user`, {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                Authorization: "Bearer " + localStorage.getItem("accessToken"),
-              },
-            });
           } else {
             return Promise.reject(`Ошибка: ${res.message}`);
           }
@@ -196,6 +185,19 @@ export const getUser = () => {
           type: GET_USER_FAILED,
         });
         console.log(err);
+        if (err.message === "jwt expired") {
+          refreshToken();
+          fetch(`${BASE_URL}auth/user`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json;charset=utf-8",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          dispatch({
+            type: GET_USER_SUCCESS,
+          });
+        }
       });
   };
 };
@@ -261,6 +263,10 @@ export const logoutUser = () => {
           dispatch({
             type: LOGOUT_SUCCESS,
           });
+          localStorage.removeItem("name");
+          localStorage.removeItem("email");
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
         } else {
           dispatch({
             type: LOGOUT_FAILED,

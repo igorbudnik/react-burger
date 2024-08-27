@@ -51,6 +51,7 @@ export const getOrder = (ingredients: string[]) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         ingredients: ingredients,

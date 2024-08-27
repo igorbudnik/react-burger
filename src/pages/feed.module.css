@@ -1,0 +1,71 @@
+.section {
+  width: 100%;
+  height: 700px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 60px;
+}
+
+.table {
+  display: flex;
+  flex-direction: row;
+  gap: 36px;
+  margin-bottom: 60px;
+}
+
+.item_table {
+  width: 272px;
+  height: 206px;
+  margin-bottom: 24px;
+}
+
+.scroll {
+  display: flex;
+  gap: 16px;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 700px;
+  scrollbar-width: thin;
+}
+
+.h2 {
+  margin: 0;
+}
+
+.p {
+  margin-bottom: 60px;
+  text-shadow: rgba(51, 51, 255, 0.5) 2px 0 20px;
+}
+
+.orders {
+  margin: 0;
+  font-family: "Iceland";
+  font-size: 28px;
+}
+.h1 {
+  margin-left: 320px;
+  margin-top: 40px;
+}
+
+.ul_ready {
+  position: relative;
+  right: 40px;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-start: auto;
+  gap: 10px;
+  color: rgba(0, 204, 204, 1);
+}
+
+.ul_pending {
+  position: relative;
+  right: 40px;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-row-start: auto;
+  gap: 10px;
+}
