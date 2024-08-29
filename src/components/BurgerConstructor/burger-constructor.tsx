@@ -12,7 +12,6 @@ import { getOrder } from "../../services/actions/ingredients";
 import { IngredientsConstructor } from "./burger-element";
 import { useNavigate } from "react-router-dom";
 import { Ingredient } from "../Types/types";
-import { WS_SEND_MESSAGE } from "../../services/actions/socket";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();

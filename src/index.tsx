@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM, { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./components/App/app";
 import reportWebVitals from "./reportWebVitals";
@@ -39,9 +39,8 @@ export const useAppSelector = useSelector.withTypes<RootState>();
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const elementRoot = document.getElementById("root") as HTMLElement;
+const root = createRoot(elementRoot);
 
 root.render(
   <React.StrictMode>
