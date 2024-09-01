@@ -7,12 +7,11 @@ import mainStyle from "./burger-constructor.module.css";
 import OrderDetails from "../OrderDetails/order-details";
 import Modal from "../Modal/modal";
 import { useAppDispatch, useAppSelector } from "../..";
-import { SHOW_ORDER, CLOSE_ORDER } from "../../services/actions/modal";
+import { SHOW_ORDER } from "../../services/actions/modal";
 import { getOrder } from "../../services/actions/ingredients";
 import { IngredientsConstructor } from "./burger-element";
 import { useNavigate } from "react-router-dom";
 import { Ingredient } from "../Types/types";
-import { WS_SEND_MESSAGE } from "../../services/actions/socket";
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch();
@@ -43,7 +42,7 @@ const BurgerConstructor = () => {
   }, [ingredientsConstructor, bun]);
 
   return (
-    <section className={mainStyle.section}>
+    <section className={`drop_item ${mainStyle.section}`}>
       <div>
         <IngredientsConstructor />
       </div>
@@ -59,15 +58,17 @@ const BurgerConstructor = () => {
             </Modal>
           </>
         )}
-        <Button
-          onClick={(e) => setOrder(e, ingredientsConstructor)}
-          htmlType="button"
-          type="primary"
-          size="large"
-          disabled={bun ? false : true}
-        >
-          Оформить заказ
-        </Button>
+        <div className="order_button">
+          <Button
+            onClick={(e) => setOrder(e, ingredientsConstructor)}
+            htmlType="button"
+            type="primary"
+            size="large"
+            disabled={bun ? false : true}
+          >
+            Оформить заказ
+          </Button>
+        </div>
       </div>
     </section>
   );

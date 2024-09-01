@@ -56,7 +56,7 @@ const IngredientsNeed = (props: PropsType) => {
         ref={dragRef}
         onClick={() => setOpened(ingredient)}
         key={ingredient._id}
-        className={mainStyle.div}
+        className={`start_drag_${ingredient._id} ${mainStyle.div}`}
       >
         <img src={ingredient.image} alt={ingredient.name} />
         {ingredient.__v > 0 && <Counter count={ingredient.__v} />}

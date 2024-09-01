@@ -54,7 +54,7 @@ interface Initial {
   infoFailed: boolean;
 }
 
-const initialState: Initial = {
+export const initialState: Initial = {
   token: "",
   passwordRequest: false,
   passwordFailed: false,
@@ -120,8 +120,6 @@ export const userReducer = (state = initialState, action: IUserInterface) => {
       };
     }
     case REGISTER_SUCCESS: {
-      console.log(action.accessToken);
-
       return {
         ...state,
         userName: action.username,
