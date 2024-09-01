@@ -35,7 +35,7 @@ interface Initial {
   orderNumber: string;
 }
 
-const initialState: Initial = {
+export const initialState: Initial = {
   allIngredients: [],
   modalIngredient: [],
   modalRequest: false,

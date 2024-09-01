@@ -1,10 +1,10 @@
 import { CLOSE_ORDER, SHOW_ORDER } from "../actions/modal";
-import { orderReducer } from "./modal";
+import { initialState, orderReducer } from "./modal";
 
 describe("modal opener reducer", () => {
   it("should return the initial state", () => {
     expect(orderReducer(undefined, {})).toEqual({
-      orderOpened: false,
+      ...initialState,
     });
   });
 });

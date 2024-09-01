@@ -21,39 +21,12 @@ import {
   RESET_REQUEST,
   RESET_SUCCESS,
 } from "../actions/password";
-import { userReducer } from "./password";
+import { initialState, userReducer } from "./password";
 
 describe("user reducer", () => {
   it("should return the initial state", () => {
     expect(userReducer(undefined, {})).toEqual({
-      token: "",
-      passwordRequest: false,
-      passwordFailed: false,
-      refreshToken: "",
-
-      userName: "",
-      userEmail: "",
-      userPassword: "",
-      registerRequest: false,
-      registerFailed: false,
-
-      resetFailed: false,
-      resetRequest: false,
-
-      name: "",
-      email: "",
-      password: "",
-      userFailed: false,
-      userRequest: false,
-
-      getRequest: false,
-      getFailed: false,
-
-      logoutRequest: false,
-      logoutFailed: false,
-
-      infoRequest: false,
-      infoFailed: false,
+      ...initialState,
     });
   });
 });
@@ -62,68 +35,14 @@ it("should call change password api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: CHANGE_PASSWORD_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -131,68 +50,15 @@ it("should approve api call", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: CHANGE_PASSWORD_SUCCESS,
       }
     )
   ).toEqual({
-    token: "",
+    ...initialState,
     passwordRequest: true,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -200,68 +66,15 @@ it("should fail api call", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: CHANGE_PASSWORD_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
+    ...initialState,
     passwordFailed: true,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -269,68 +82,14 @@ it("should call register api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: REGISTER_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -338,34 +97,7 @@ it("should approve register api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: REGISTER_SUCCESS,
@@ -375,34 +107,12 @@ it("should approve register api", () => {
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
+    ...initialState,
 
     userName: "Igor",
     userEmail: "ibudnik@yandex.ru",
     userPassword: "123",
     registerRequest: true,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -410,68 +120,15 @@ it("should fail register api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: REGISTER_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
+    ...initialState,
     registerFailed: true,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -479,68 +136,14 @@ it("should call reset api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: RESET_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -548,68 +151,15 @@ it("should approve reset api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: RESET_SUCCESS,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
+    ...initialState,
     resetRequest: true,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -617,68 +167,15 @@ it("should fail reset api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: RESET_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
+    ...initialState,
     resetFailed: true,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -686,68 +183,14 @@ it("should call login api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: LOGIN_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -755,34 +198,7 @@ it("should approve login api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: LOGIN_SUCCESS,
@@ -791,34 +207,11 @@ it("should approve login api", () => {
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
+    ...initialState,
     email: "ibudnik@yandex.ru",
     password: "123",
-    userFailed: false,
+
     userRequest: true,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -826,68 +219,15 @@ it("should fail login api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: LOGIN_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
+    ...initialState,
     userFailed: true,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -895,68 +235,14 @@ it("should call get user api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: GET_USER_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -964,34 +250,7 @@ it("should approve get user api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: GET_USER_SUCCESS,
@@ -1000,34 +259,11 @@ it("should approve get user api", () => {
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
+    ...initialState,
     name: "Igor",
     email: "ibudnik@yandex.ru",
-    password: "",
-    userFailed: false,
-    userRequest: false,
 
     getRequest: true,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -1035,68 +271,14 @@ it("should fail get user api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: GET_USER_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -1104,68 +286,14 @@ it("should call logout api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: LOGOUT_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -1173,34 +301,14 @@ it("should approve logout api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
+        ...initialState,
         refreshToken: "qwer123qwer",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
 
         name: "Igor",
         email: "ibudnik@yandex.ru",
         password: "123",
-        userFailed: false,
+
         userRequest: true,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
       },
       {
         type: LOGOUT_SUCCESS,
@@ -1211,34 +319,8 @@ it("should approve logout api", () => {
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
+    ...initialState,
     logoutRequest: true,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -1246,68 +328,15 @@ it("should fail logout api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: LOGOUT_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
+    ...initialState,
     logoutFailed: true,
-
-    infoRequest: false,
-    infoFailed: false,
   });
 });
 
@@ -1315,68 +344,14 @@ it("should call change info api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: CHANGE_INFO_REQUEST,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
-    infoFailed: false,
+    ...initialState,
   });
 });
 
@@ -1384,34 +359,10 @@ it("should approve change info api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
+        ...initialState,
         name: "Igor",
         email: "ibudnik@yandex.ru",
         password: "123",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
       },
       {
         type: CHANGE_INFO_SUCCESS,
@@ -1422,34 +373,12 @@ it("should approve change info api", () => {
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
+    ...initialState,
     name: "Panter",
     email: "i@yandex.ru",
     password: "321",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
 
     infoRequest: true,
-    infoFailed: false,
   });
 });
 
@@ -1457,67 +386,14 @@ it("should fail change info api", () => {
   expect(
     userReducer(
       {
-        token: "",
-        passwordRequest: false,
-        passwordFailed: false,
-        refreshToken: "",
-
-        userName: "",
-        userEmail: "",
-        userPassword: "",
-        registerRequest: false,
-        registerFailed: false,
-
-        resetFailed: false,
-        resetRequest: false,
-
-        name: "",
-        email: "",
-        password: "",
-        userFailed: false,
-        userRequest: false,
-
-        getRequest: false,
-        getFailed: false,
-
-        logoutRequest: false,
-        logoutFailed: false,
-
-        infoRequest: false,
-        infoFailed: false,
+        ...initialState,
       },
       {
         type: CHANGE_INFO_FAILED,
       }
     )
   ).toEqual({
-    token: "",
-    passwordRequest: false,
-    passwordFailed: false,
-    refreshToken: "",
-
-    userName: "",
-    userEmail: "",
-    userPassword: "",
-    registerRequest: false,
-    registerFailed: false,
-
-    resetFailed: false,
-    resetRequest: false,
-
-    name: "",
-    email: "",
-    password: "",
-    userFailed: false,
-    userRequest: false,
-
-    getRequest: false,
-    getFailed: false,
-
-    logoutRequest: false,
-    logoutFailed: false,
-
-    infoRequest: false,
+    ...initialState,
     infoFailed: true,
   });
 });

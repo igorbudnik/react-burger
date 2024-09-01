@@ -54,7 +54,7 @@ interface Initial {
   infoFailed: boolean;
 }
 
-const initialState: Initial = {
+export const initialState: Initial = {
   token: "",
   passwordRequest: false,
   passwordFailed: false,

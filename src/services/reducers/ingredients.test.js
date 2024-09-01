@@ -11,21 +11,73 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
 } from "../actions/ingredients";
-import { getIngredientsReducer } from "./ingredients";
+import { getIngredientsReducer, initialState } from "./ingredients";
+
+export const cratorBun = {
+  _id: "643d69a5c3f7b9001cfa093c",
+  name: "Краторная булка N-200i",
+  type: "bun",
+  proteins: 80,
+  fat: 24,
+  carbohydrates: 53,
+  calories: 420,
+  price: 1255,
+  image: "https://code.s3.yandex.net/react/code/bun-02.png",
+  image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
+  image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+  __v: 0,
+};
+
+const sauceTraditional = {
+  _id: "643d69a5c3f7b9001cfa0944",
+  name: "Соус традиционный галактический",
+  type: "sauce",
+  proteins: 42,
+  fat: 24,
+  carbohydrates: 42,
+  calories: 99,
+  price: 15,
+  image: "https://code.s3.yandex.net/react/code/sauce-03.png",
+  image_mobile: "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
+  image_large: "https://code.s3.yandex.net/react/code/sauce-03-large.png",
+  __v: 0,
+  uid: "qwerty",
+};
+
+const bioMain = {
+  _id: "643d69a5c3f7b9001cfa0941",
+  name: "Биокотлета из марсианской Магнолии",
+  type: "main",
+  proteins: 420,
+  fat: 142,
+  carbohydrates: 242,
+  calories: 4242,
+  price: 424,
+  image: "https://code.s3.yandex.net/react/code/meat-01.png",
+  image_mobile: "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
+  image_large: "https://code.s3.yandex.net/react/code/meat-01-large.png",
+  __v: 0,
+};
+
+const tetraMain = {
+  _id: "643d69a5c3f7b9001cfa093e",
+  name: "Филе Люминесцентного тетраодонтимформа",
+  type: "main",
+  proteins: 44,
+  fat: 26,
+  carbohydrates: 85,
+  calories: 643,
+  price: 988,
+  image: "https://code.s3.yandex.net/react/code/meat-03.png",
+  image_mobile: "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
+  image_large: "https://code.s3.yandex.net/react/code/meat-03-large.png",
+  __v: 0,
+};
 
 describe("ingredients and orders reducer", () => {
   it("should return the initial state", () => {
     expect(getIngredientsReducer(undefined, {})).toEqual({
-      allIngredients: [],
-      modalIngredient: [],
-      modalRequest: false,
-      ingredientsRequest: false,
-      ingredientsFailed: false,
-      ingredientsConstructor: [],
-      bun: null,
-      orderRequest: false,
-      orderFailed: false,
-      orderNumber: "",
+      ...initialState,
     });
   });
 });
@@ -34,23 +86,9 @@ it("should find needed ingredient by id", () => {
   expect(
     getIngredientsReducer(
       {
+        ...initialState,
         allIngredients: [
-          {
-            _id: "643d69a5c3f7b9001cfa093c",
-            name: "Краторная булка N-200i",
-            type: "bun",
-            proteins: 80,
-            fat: 24,
-            carbohydrates: 53,
-            calories: 420,
-            price: 1255,
-            image: "https://code.s3.yandex.net/react/code/bun-02.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/bun-02-large.png",
-            __v: 0,
-          },
+          cratorBun,
           {
             _id: "643d69a5c3f7b9001cfa0941",
             name: "Биокотлета из марсианской Магнолии",
@@ -274,15 +312,6 @@ it("should find needed ingredient by id", () => {
             __v: 0,
           },
         ],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
       },
 
       {
@@ -291,21 +320,9 @@ it("should find needed ingredient by id", () => {
       }
     )
   ).toEqual({
+    ...initialState,
     allIngredients: [
-      {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        __v: 0,
-      },
+      cratorBun,
       {
         _id: "643d69a5c3f7b9001cfa0941",
         name: "Биокотлета из марсианской Магнолии",
@@ -513,30 +530,7 @@ it("should find needed ingredient by id", () => {
         __v: 0,
       },
     ],
-    modalIngredient: [
-      {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        __v: 0,
-      },
-    ],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    modalIngredient: [cratorBun],
   });
 });
 
@@ -544,32 +538,14 @@ it("should start call api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_INGREDIENTS_REQUEST,
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    ...initialState,
   });
 });
 
@@ -577,65 +553,18 @@ it("should get ingredients from api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_INGREDIENTS_SUCCESS,
-        ingredients: [
-          {
-            _id: "643d69a5c3f7b9001cfa093c",
-            name: "Краторная булка N-200i",
-            type: "bun",
-            proteins: 80,
-            fat: 24,
-            carbohydrates: 53,
-            calories: 420,
-            price: 1255,
-            image: "https://code.s3.yandex.net/react/code/bun-02.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/bun-02-large.png",
-            __v: 0,
-          },
-        ],
+        ingredients: [cratorBun],
       }
     )
   ).toEqual({
-    allIngredients: [
-      {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-        __v: 0,
-      },
-    ],
-    modalIngredient: [],
-    modalRequest: false,
+    ...initialState,
+    allIngredients: [cratorBun],
+
     ingredientsRequest: true,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
   });
 });
 
@@ -643,32 +572,16 @@ it("should start call api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_INGREDIENTS_FAILED,
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
+    ...initialState,
     ingredientsRequest: true,
     ingredientsFailed: true,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
   });
 });
 
@@ -676,23 +589,9 @@ it("should find needed ingredient by id", () => {
   expect(
     getIngredientsReducer(
       {
+        ...initialState,
         allIngredients: [
-          {
-            _id: "643d69a5c3f7b9001cfa093c",
-            name: "Краторная булка N-200i",
-            type: "bun",
-            proteins: 80,
-            fat: 24,
-            carbohydrates: 53,
-            calories: 420,
-            price: 1255,
-            image: "https://code.s3.yandex.net/react/code/bun-02.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/bun-02-large.png",
-            __v: 0,
-          },
+          cratorBun,
           {
             _id: "643d69a5c3f7b9001cfa0941",
             name: "Биокотлета из марсианской Магнолии",
@@ -916,50 +815,18 @@ it("should find needed ingredient by id", () => {
             __v: 0,
           },
         ],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
       },
 
       {
         type: ADD_CONSTRUCTOR_ITEM,
-        payload: {
-          _id: "643d69a5c3f7b9001cfa093c",
-          name: "Краторная булка N-200i",
-          type: "bun",
-          proteins: 80,
-          fat: 24,
-          carbohydrates: 53,
-          calories: 420,
-          price: 1255,
-          image: "https://code.s3.yandex.net/react/code/bun-02.png",
-          image_mobile:
-            "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-          image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-          __v: 0,
-        },
+        payload: cratorBun,
       }
     )
   ).toEqual({
+    ...initialState,
     allIngredients: [
       {
-        _id: "643d69a5c3f7b9001cfa093c",
-        name: "Краторная булка N-200i",
-        type: "bun",
-        proteins: 80,
-        fat: 24,
-        carbohydrates: 53,
-        calories: 420,
-        price: 1255,
-        image: "https://code.s3.yandex.net/react/code/bun-02.png",
-        image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
+        ...cratorBun,
         __v: 2,
       },
       {
@@ -1169,28 +1036,8 @@ it("should find needed ingredient by id", () => {
         __v: 0,
       },
     ],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: {
-      _id: "643d69a5c3f7b9001cfa093c",
-      name: "Краторная булка N-200i",
-      type: "bun",
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: "https://code.s3.yandex.net/react/code/bun-02.png",
-      image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-      image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-      __v: 0,
-    },
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+
+    bun: cratorBun,
   });
 });
 
@@ -1198,12 +1045,7 @@ it("should change buns", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
+        ...initialState,
         bun: {
           _id: "643d69a5c3f7b9001cfa093d",
           name: "Флюоресцентная булка R2-D3",
@@ -1219,53 +1061,15 @@ it("should change buns", () => {
           image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
           __v: 2,
         },
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
       },
       {
         type: CHANGE_BUN,
-        payload: {
-          _id: "643d69a5c3f7b9001cfa093c",
-          name: "Краторная булка N-200i",
-          type: "bun",
-          proteins: 80,
-          fat: 24,
-          carbohydrates: 53,
-          calories: 420,
-          price: 1255,
-          image: "https://code.s3.yandex.net/react/code/bun-02.png",
-          image_mobile:
-            "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-          image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-          __v: 0,
-        },
+        payload: cratorBun,
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: {
-      _id: "643d69a5c3f7b9001cfa093c",
-      name: "Краторная булка N-200i",
-      type: "bun",
-      proteins: 80,
-      fat: 24,
-      carbohydrates: 53,
-      calories: 420,
-      price: 1255,
-      image: "https://code.s3.yandex.net/react/code/bun-02.png",
-      image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-      image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-      __v: 0,
-    },
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    ...initialState,
+    bun: cratorBun,
   });
 });
 
@@ -1273,85 +1077,23 @@ it("should delete ingredient by uid", () => {
   expect(
     getIngredientsReducer(
       {
+        ...initialState,
         allIngredients: [
           {
-            _id: "643d69a5c3f7b9001cfa0944",
-            name: "Соус традиционный галактический",
-            type: "sauce",
-            proteins: 42,
-            fat: 24,
-            carbohydrates: 42,
-            calories: 99,
-            price: 15,
-            image: "https://code.s3.yandex.net/react/code/sauce-03.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/sauce-03-large.png",
+            ...sauceTraditional,
             __v: 1,
-            uid: "qwerty",
           },
         ],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
       },
 
       {
         type: DELETE_CONSTRUCTOR_ITEM,
-        payload: {
-          _id: "643d69a5c3f7b9001cfa0944",
-          name: "Соус традиционный галактический",
-          type: "sauce",
-          proteins: 42,
-          fat: 24,
-          carbohydrates: 42,
-          calories: 99,
-          price: 15,
-          image: "https://code.s3.yandex.net/react/code/sauce-03.png",
-          image_mobile:
-            "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
-          image_large:
-            "https://code.s3.yandex.net/react/code/sauce-03-large.png",
-          __v: 0,
-          uid: "qwerty",
-        },
+        payload: sauceTraditional,
       }
     )
   ).toEqual({
-    allIngredients: [
-      {
-        _id: "643d69a5c3f7b9001cfa0944",
-        name: "Соус традиционный галактический",
-        type: "sauce",
-        proteins: 42,
-        fat: 24,
-        carbohydrates: 42,
-        calories: 99,
-        price: 15,
-        image: "https://code.s3.yandex.net/react/code/sauce-03.png",
-        image_mobile:
-          "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/sauce-03-large.png",
-        __v: 0,
-        uid: "qwerty",
-      },
-    ],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    ...initialState,
+    allIngredients: [sauceTraditional],
   });
 });
 
@@ -1359,32 +1101,14 @@ it("should start call order api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_ORDER_REQUEST,
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    ...initialState,
   });
 });
 
@@ -1392,16 +1116,7 @@ it("should get order from api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_ORDER_SUCCESS,
@@ -1409,15 +1124,8 @@ it("should get order from api", () => {
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
+    ...initialState,
     orderRequest: true,
-    orderFailed: false,
     orderNumber: "12345",
   });
 });
@@ -1426,32 +1134,16 @@ it("should fail call order api", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
       },
       {
         type: GET_ORDER_FAILED,
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [],
-    bun: null,
+    ...initialState,
     orderRequest: true,
     orderFailed: true,
-    orderNumber: "",
   });
 });
 
@@ -1459,129 +1151,16 @@ it("should change places of ingredients", () => {
   expect(
     getIngredientsReducer(
       {
-        allIngredients: [],
-        modalIngredient: [],
-        modalRequest: false,
-        ingredientsRequest: false,
-        ingredientsFailed: false,
-        ingredientsConstructor: [
-          {
-            _id: "643d69a5c3f7b9001cfa0941",
-            name: "Биокотлета из марсианской Магнолии",
-            type: "main",
-            proteins: 420,
-            fat: 142,
-            carbohydrates: 242,
-            calories: 4242,
-            price: 424,
-            image: "https://code.s3.yandex.net/react/code/meat-01.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/meat-01-large.png",
-            __v: 0,
-          },
-          {
-            _id: "643d69a5c3f7b9001cfa093e",
-            name: "Филе Люминесцентного тетраодонтимформа",
-            type: "main",
-            proteins: 44,
-            fat: 26,
-            carbohydrates: 85,
-            calories: 643,
-            price: 988,
-            image: "https://code.s3.yandex.net/react/code/meat-03.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/meat-03-large.png",
-            __v: 0,
-          },
-        ],
-        bun: null,
-        orderRequest: false,
-        orderFailed: false,
-        orderNumber: "",
+        ...initialState,
+        ingredientsConstructor: [bioMain, tetraMain],
       },
       {
         type: CHANGE_INGREDIENTS_PLACE,
-        ingredients: [
-          {
-            _id: "643d69a5c3f7b9001cfa093e",
-            name: "Филе Люминесцентного тетраодонтимформа",
-            type: "main",
-            proteins: 44,
-            fat: 26,
-            carbohydrates: 85,
-            calories: 643,
-            price: 988,
-            image: "https://code.s3.yandex.net/react/code/meat-03.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/meat-03-large.png",
-            __v: 0,
-          },
-          {
-            _id: "643d69a5c3f7b9001cfa0941",
-            name: "Биокотлета из марсианской Магнолии",
-            type: "main",
-            proteins: 420,
-            fat: 142,
-            carbohydrates: 242,
-            calories: 4242,
-            price: 424,
-            image: "https://code.s3.yandex.net/react/code/meat-01.png",
-            image_mobile:
-              "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-            image_large:
-              "https://code.s3.yandex.net/react/code/meat-01-large.png",
-            __v: 0,
-          },
-        ],
+        ingredients: [tetraMain, bioMain],
       }
     )
   ).toEqual({
-    allIngredients: [],
-    modalIngredient: [],
-    modalRequest: false,
-    ingredientsRequest: false,
-    ingredientsFailed: false,
-    ingredientsConstructor: [
-      {
-        _id: "643d69a5c3f7b9001cfa093e",
-        name: "Филе Люминесцентного тетраодонтимформа",
-        type: "main",
-        proteins: 44,
-        fat: 26,
-        carbohydrates: 85,
-        calories: 643,
-        price: 988,
-        image: "https://code.s3.yandex.net/react/code/meat-03.png",
-        image_mobile:
-          "https://code.s3.yandex.net/react/code/meat-03-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/meat-03-large.png",
-        __v: 0,
-      },
-      {
-        _id: "643d69a5c3f7b9001cfa0941",
-        name: "Биокотлета из марсианской Магнолии",
-        type: "main",
-        proteins: 420,
-        fat: 142,
-        carbohydrates: 242,
-        calories: 4242,
-        price: 424,
-        image: "https://code.s3.yandex.net/react/code/meat-01.png",
-        image_mobile:
-          "https://code.s3.yandex.net/react/code/meat-01-mobile.png",
-        image_large: "https://code.s3.yandex.net/react/code/meat-01-large.png",
-        __v: 0,
-      },
-    ],
-    bun: null,
-    orderRequest: false,
-    orderFailed: false,
-    orderNumber: "",
+    ...initialState,
+    ingredientsConstructor: [tetraMain, bioMain],
   });
 });

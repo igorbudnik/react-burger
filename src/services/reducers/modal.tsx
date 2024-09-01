@@ -8,7 +8,7 @@ type ActionType = {
   type: string;
 };
 
-const initialState: Initial = {
+export const initialState: Initial = {
   orderOpened: false,
 };
 

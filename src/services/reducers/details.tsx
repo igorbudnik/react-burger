@@ -6,7 +6,7 @@ interface Initial {
   ingredientOpened: boolean;
 }
 
-const initialState: Initial = {
+export const initialState: Initial = {
   ingredient: {
     ingredients: [],
     _id: "",
