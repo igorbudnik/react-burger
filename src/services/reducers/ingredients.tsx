@@ -125,7 +125,6 @@ export const getIngredientsReducer = (
       return state;
     }
     case DELETE_CONSTRUCTOR_ITEM: {
-      console.log(action.payload);
       return {
         ...state,
         ingredientsConstructor: [...state.ingredientsConstructor].filter(
@@ -160,8 +159,6 @@ export const getIngredientsReducer = (
       };
     }
     case CHANGE_INGREDIENTS_PLACE: {
-      console.log(action.ingredients);
-
       return {
         ...state,
         ingredientsConstructor: [...action.ingredients],

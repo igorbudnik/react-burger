@@ -120,8 +120,6 @@ export const userReducer = (state = initialState, action: IUserInterface) => {
       };
     }
     case REGISTER_SUCCESS: {
-      console.log(action.accessToken);
-
       return {
         ...state,
         userName: action.username,

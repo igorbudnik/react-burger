@@ -15,7 +15,7 @@ const OrderDetails = () => {
       ) : (
         <section className={infoStyle.section}>
           <h1 className={infoStyle.h1}>
-            <b>{orderNumber}</b>
+            <b data-testid="order-number">{orderNumber}</b>
           </h1>
           <span className="text text_type_main-medium">
             <b>идентификатор заказа</b>

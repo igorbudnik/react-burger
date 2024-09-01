@@ -37,7 +37,7 @@ const Modal = (props: ModalProps) => {
       <ModalOverlay changeOpen={() => setClosed(url)} />
       <div className={modalStyle.modal}>
         <section id="head" className={modalStyle.section}>
-          <div className={modalStyle.close}>
+          <div className={`close_icon ${modalStyle.close}`}>
             <CloseIcon type="primary" onClick={() => setClosed(url)} />
           </div>
           {children}
